@@ -11,7 +11,7 @@ const BEEE_DATA = {
   course: {
     title: 'Basic Electrical and Electronics Engineering (BEEE)',
     code: 'BEEE-101 / 26EC054',
-    university: 'Charotar University of Science and Technology (CHARUSAT)',
+    university: 'Basic Electrical and Electronics Engineering (BEEE)',
     units: [
       { id: 'u1', num: 1, title: 'Electrical Terms, Concepts & Components', shortTitle: 'Electrical Concepts', color: '#00f5ff', count: 14 },
       { id: 'u2', num: 2, title: 'Electrical Circuit Analysis & Network Theorems', shortTitle: 'Circuit Analysis', color: '#a855f7', count: 11 },

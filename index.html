@@ -258,11 +258,52 @@
     .brand-tag {
       color: var(--cyan);
       background: rgba(0, 245, 255, 0.12);
-      border: 1px solid rgba(0, 245, 255, 0.3);
-      padding: 3px 9px;
+      border: 1px solid rgba(0, 245, 255, 0.35);
+      padding: 3px 10px;
       border-radius: 6px;
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 700;
+      white-space: nowrap;
+      letter-spacing: 0.03em;
+    }
+
+    .team-watermark-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: linear-gradient(135deg, rgba(0, 245, 255, 0.14), rgba(139, 92, 246, 0.2));
+      border: 1px solid rgba(0, 245, 255, 0.45);
+      color: #00f5ff;
+      padding: 6px 14px;
+      border-radius: 9px;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      user-select: none;
+      box-shadow: 0 0 16px rgba(0, 245, 255, 0.22);
+      transition: all 0.25s ease;
+    }
+    .team-watermark-badge:hover {
+      background: linear-gradient(135deg, rgba(0, 245, 255, 0.25), rgba(139, 92, 246, 0.35));
+      border-color: #00f5ff;
+      box-shadow: 0 0 24px rgba(0, 245, 255, 0.5);
+      transform: translateY(-1px);
+    }
+    .team-watermark-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #00f5ff;
+      box-shadow: 0 0 10px #00f5ff;
+      animation: teamGlowPulse 2s infinite ease-in-out;
+    }
+    @keyframes teamGlowPulse {
+      0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 10px #00f5ff; }
+      50% { opacity: 0.45; transform: scale(1.35); box-shadow: 0 0 18px #a855f7; }
+    }
+    @media (max-width: 1120px) {
+      .nav-links { display: none; }
     }
 
     .nav-links {
@@ -1435,7 +1476,7 @@
     <a href="#dash" class="brand">
       <div class="brand-dot"></div>
       <span>BEEE MASTER LAB</span>
-      <span class="brand-tag">CHARUSAT</span>
+      <span class="brand-tag">By Divyesh Kevadiya</span>
     </a>
 
     <div class="nav-links">
@@ -1466,6 +1507,11 @@
       <button class="icon-btn" onclick="openVoiceSettings()" title="Narrator Voice Settings">🎙️</button>
       <button class="icon-btn" id="audioToggleBtn" onclick="toggleAudio()" title="Sound FX">🔊</button>
       <button class="icon-btn" onclick="toggleFullscreen()" title="Fullscreen">⛶</button>
+
+      <div class="team-watermark-badge" title="Engineering Team">
+        <span class="team-watermark-dot"></span>
+        <span>team DEKZA_FX</span>
+      </div>
     </div>
   </nav>
 
@@ -1475,8 +1521,10 @@
   <section id="dash" class="hero-dash">
     <div class="hero-top-banner">
       <div class="hero-title-box">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px; flex-wrap:wrap;">
           <span class="brand-tag">BEEE-101 / 26EC054</span>
+          <span class="brand-tag" style="background:rgba(139,92,246,0.15); border-color:rgba(139,92,246,0.4); color:#c084fc;">Created by Divyesh Kevadiya</span>
+          <span class="brand-tag" style="background:rgba(16,185,129,0.15); border-color:rgba(16,185,129,0.4); color:#34d399;">team DEKZA_FX</span>
           <span style="font-size:12px; color:var(--muted); font-weight:600;">CHAROTAR UNIVERSITY OF SCIENCE AND TECHNOLOGY</span>
         </div>
         <h1>Basic Electrical & <em>Electronics</em> Engineering Master Laboratory</h1>
@@ -1557,7 +1605,7 @@
     <div class="section-header">
       <span class="section-label">CURRICULUM SYLLABUS CATALOG</span>
       <h2 class="section-title">Explore All 32 Engineering Topics</h2>
-      <p class="section-desc">Zero-omission curriculum from official CHARUSAT course outlines. Each topic features interactive simulations, line-by-line concept breakdowns, mathematical derivations, and solved exam problems.</p>
+      <p class="section-desc">Zero-omission curriculum for Basic Electrical & Electronics Engineering. Each topic features interactive simulations, line-by-line concept breakdowns, mathematical derivations, and solved exam problems.</p>
     </div>
 
     <!-- Filter & Search Toolbar -->
@@ -2131,7 +2179,7 @@
 
   <!-- FOOTER -->
   <footer style="padding:40px 4vw; text-align:center; border-top:1px solid var(--border); color:var(--muted); font-size:13px;">
-    <p>© Basic Electrical and Electronics Engineering (BEEE) Master Platform • CHARUSAT University • Fully Offline Capable</p>
+    <p>© Basic Electrical and Electronics Engineering (BEEE) Master Platform • Developed by Divyesh Kevadiya • team DEKZA_FX • Fully Offline Capable</p>
   </footer>
 
   <!-- =========================================================================
