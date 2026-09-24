@@ -1,0 +1,3359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BEEE Master Lab - Basic Electrical & Electronics Engineering (BEEE-101 / 26EC054)</title>
+  <script>
+    window.__errors = [];
+    window.onerror = function(msg, url, line, col, error) {
+      window.__errors.push({ msg: msg, url: url, line: line, col: col, stack: error ? error.stack : '' });
+    };
+  </script>
+  <style>
+    /* =========================================================================
+     * THEMES & CSS DESIGN TOKENS
+     * ========================================================================= */
+    :root, body.theme-cyber {
+      --bg: #030712;
+      --bg-surface: #0a0f1d;
+      --bg-card: rgba(15, 23, 42, 0.72);
+      --bg-glass: rgba(15, 23, 42, 0.88);
+      --border: rgba(0, 245, 255, 0.18);
+      --border-bright: rgba(0, 245, 255, 0.45);
+      --border-violet: rgba(139, 92, 246, 0.35);
+      --cyan: #00f5ff;
+      --cyan-glow: 0 0 28px rgba(0, 245, 255, 0.4);
+      --violet: #8b5cf6;
+      --violet-glow: 0 0 28px rgba(139, 92, 246, 0.4);
+      --pink: #ff2e93;
+      --pink-glow: 0 0 28px rgba(255, 46, 147, 0.4);
+      --amber: #f59e0b;
+      --emerald: #10b981;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --muted-dark: #64748b;
+    }
+
+    body.theme-lab {
+      --bg: #070d19;
+      --bg-surface: #0b1528;
+      --bg-card: rgba(11, 21, 40, 0.85);
+      --bg-glass: rgba(11, 21, 40, 0.95);
+      --border: rgba(6, 182, 212, 0.25);
+      --border-bright: rgba(6, 182, 212, 0.6);
+      --border-violet: rgba(99, 102, 241, 0.35);
+      --cyan: #06b6d4;
+      --cyan-glow: 0 0 28px rgba(6, 182, 212, 0.4);
+      --violet: #6366f1;
+      --pink: #f43f5e;
+      --amber: #eab308;
+      --emerald: #10b981;
+      --text: #f0fdf4;
+      --muted: #94a3b8;
+      --muted-dark: #64748b;
+    }
+
+    body.theme-amoled {
+      --bg: #000000;
+      --bg-surface: #080808;
+      --bg-card: #050505;
+      --bg-glass: #080808;
+      --border: #222222;
+      --border-bright: #444444;
+      --border-violet: #333333;
+      --cyan: #00f5ff;
+      --cyan-glow: 0 0 20px rgba(0, 245, 255, 0.5);
+      --violet: #a855f7;
+      --pink: #ff007f;
+      --amber: #ffaa00;
+      --emerald: #00ff88;
+      --text: #ffffff;
+      --muted: #a0a0a0;
+      --muted-dark: #555555;
+    }
+
+    body.theme-slate {
+      --bg: #0f172a;
+      --bg-surface: #1e293b;
+      --bg-card: rgba(30, 41, 59, 0.85);
+      --bg-glass: rgba(30, 41, 59, 0.95);
+      --border: #334155;
+      --border-bright: #475569;
+      --border-violet: #64748b;
+      --cyan: #38bdf8;
+      --cyan-glow: 0 0 20px rgba(56, 189, 248, 0.35);
+      --violet: #818cf8;
+      --pink: #fb7185;
+      --amber: #fbbf24;
+      --emerald: #34d399;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --muted-dark: #64748b;
+    }
+
+    body.theme-midnight {
+      --bg: #020617;
+      --bg-surface: #0a1026;
+      --bg-card: rgba(10, 16, 38, 0.85);
+      --bg-glass: rgba(10, 16, 38, 0.95);
+      --border: rgba(99, 102, 241, 0.25);
+      --border-bright: rgba(99, 102, 241, 0.55);
+      --border-violet: rgba(99, 102, 241, 0.4);
+      --cyan: #38bdf8;
+      --cyan-glow: 0 0 24px rgba(56, 189, 248, 0.4);
+      --violet: #6366f1;
+      --pink: #ec4899;
+      --amber: #f59e0b;
+      --emerald: #10b981;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --muted-dark: #64748b;
+    }
+
+    body.theme-glass {
+      --bg: #0b0f19;
+      --bg-surface: rgba(255, 255, 255, 0.04);
+      --bg-card: rgba(255, 255, 255, 0.07);
+      --bg-glass: rgba(255, 255, 255, 0.12);
+      --border: rgba(255, 255, 255, 0.16);
+      --border-bright: rgba(255, 255, 255, 0.38);
+      --border-violet: rgba(168, 85, 247, 0.4);
+      --cyan: #00f5ff;
+      --cyan-glow: 0 0 30px rgba(0, 245, 255, 0.45);
+      --violet: #a855f7;
+      --pink: #f43f5e;
+      --amber: #f59e0b;
+      --emerald: #10b981;
+      --text: #ffffff;
+      --muted: #cbd5e1;
+      --muted-dark: #94a3b8;
+    }
+
+    body.theme-light {
+      --bg: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --bg-glass: rgba(255, 255, 255, 0.95);
+      --border: #e2e8f0;
+      --border-bright: #cbd5e1;
+      --border-violet: #e0e7ff;
+      --cyan: #0284c7;
+      --cyan-glow: 0 0 15px rgba(2, 132, 199, 0.2);
+      --violet: #7c3aed;
+      --pink: #db2777;
+      --amber: #d97706;
+      --emerald: #059669;
+      --text: #0f172a;
+      --muted: #64748b;
+      --muted-dark: #94a3b8;
+    }
+
+    body.theme-minimal {
+      --bg: #18181b;
+      --bg-surface: #27272a;
+      --bg-card: rgba(39, 39, 42, 0.85);
+      --bg-glass: rgba(39, 39, 42, 0.95);
+      --border: #3f3f46;
+      --border-bright: #52525b;
+      --border-violet: #52525b;
+      --cyan: #a1a1aa;
+      --cyan-glow: 0 0 10px rgba(161, 161, 170, 0.2);
+      --violet: #71717a;
+      --pink: #e4e4e7;
+      --amber: #d4d4d8;
+      --emerald: #a1a1aa;
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --muted-dark: #71717a;
+    }
+
+    body.theme-contrast {
+      --bg: #000000;
+      --bg-surface: #000000;
+      --bg-card: #000000;
+      --bg-glass: #000000;
+      --border: #ffff00;
+      --border-bright: #00ffff;
+      --border-violet: #ffff00;
+      --cyan: #00ffff;
+      --cyan-glow: none;
+      --violet: #ffff00;
+      --pink: #ff00ff;
+      --amber: #ffff00;
+      --emerald: #00ff00;
+      --text: #ffffff;
+      --muted: #ffffaa;
+      --muted-dark: #aaaaaa;
+    }
+
+    /* Core Styles */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(139, 92, 246, 0.1), transparent 40%),
+        radial-gradient(circle at 85% 65%, rgba(0, 245, 255, 0.08), transparent 45%),
+        radial-gradient(circle at 50% 90%, rgba(255, 46, 147, 0.06), transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+      will-change: transform;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
+
+    /* Top Navigation */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 74px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3.5vw;
+      background: rgba(3, 7, 18, 0.82);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    body.theme-light nav { background: rgba(255, 255, 255, 0.9); }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .brand-dot {
+      width: 11px; height: 11px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 18px var(--cyan);
+      animation: brandPulse 2s infinite;
+    }
+    @keyframes brandPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.7; } }
+
+    .brand-tag {
+      color: var(--cyan);
+      background: rgba(0, 245, 255, 0.12);
+      border: 1px solid rgba(0, 245, 255, 0.3);
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+    .nav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--muted);
+      padding: 7px 13px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      color: #fff;
+      background: rgba(0, 245, 255, 0.12);
+      border-color: var(--border);
+      box-shadow: 0 0 15px rgba(0, 245, 255, 0.15);
+    }
+    body.theme-light .nav-btn:hover, body.theme-light .nav-btn.active {
+      color: var(--cyan);
+      background: rgba(2, 132, 199, 0.1);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .theme-select {
+      background: var(--bg-surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .icon-btn {
+      background: rgba(0, 245, 255, 0.08);
+      border: 1px solid var(--border);
+      color: var(--cyan);
+      width: 38px; height: 38px;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    .icon-btn:hover {
+      background: rgba(0, 245, 255, 0.22);
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+      box-shadow: var(--cyan-glow);
+    }
+
+    #scroll-progress {
+      position: fixed;
+      top: 74px; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--violet), var(--pink));
+      width: 0%;
+      z-index: 999;
+      box-shadow: 0 0 12px var(--cyan);
+      transition: width 0.1s;
+    }
+
+    /* Section Spacing & Shell */
+    .section-wrap {
+      padding: 90px 4vw 70px;
+      border-top: 1px solid var(--border);
+      position: relative;
+    }
+    .section-header {
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto 36px;
+    }
+    .section-label {
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .section-title {
+      font-size: clamp(30px, 4vw, 50px);
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+      line-height: 1.15;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .section-desc {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* Hero & Dashboard */
+    .hero-dash {
+      padding: 115px 4vw 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .hero-top-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 30px 40px;
+      backdrop-filter: blur(16px);
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .hero-title-box h1 {
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .hero-title-box h1 em {
+      color: var(--cyan);
+      font-style: normal;
+      text-shadow: var(--cyan-glow);
+    }
+    .hero-title-box p {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 650px;
+    }
+
+    /* Dashboard Stats Row */
+    .dash-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px 24px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      transition: all 0.25s;
+    }
+    .metric-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--cyan);
+      box-shadow: 0 10px 25px rgba(0, 245, 255, 0.12);
+    }
+    .metric-ring-wrap {
+      position: relative;
+      width: 60px; height: 60px;
+      flex-shrink: 0;
+    }
+    .metric-ring-svg {
+      width: 60px; height: 60px;
+      transform: rotate(-90deg);
+    }
+    .ring-bg { stroke: rgba(255, 255, 255, 0.1); stroke-width: 5; fill: none; }
+    .ring-val {
+      stroke-width: 5;
+      stroke-linecap: round;
+      fill: none;
+      transition: stroke-dashoffset 0.8s ease;
+    }
+    .ring-percent {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .metric-info h4 {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+    .metric-info .metric-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    /* Units Tabs & Topics Grid */
+    .topic-filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .unit-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .unit-pill {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 9px 18px;
+      border-radius: 99px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .unit-pill:hover, .unit-pill.active {
+      background: rgba(0, 245, 255, 0.15);
+      border-color: var(--cyan);
+      color: #fff;
+    }
+    body.theme-light .unit-pill:hover, body.theme-light .unit-pill.active {
+      color: var(--cyan);
+      background: rgba(2, 132, 199, 0.12);
+    }
+
+    .topic-search-box {
+      width: 100%;
+      max-width: 320px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 9px 16px;
+      border-radius: 99px;
+      font-size: 13px;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .topic-search-box:focus {
+      border-color: var(--cyan);
+      box-shadow: var(--cyan-glow);
+    }
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+    .topic-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(14px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+      will-change: transform;
+      position: relative;
+    }
+    .topic-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--cyan);
+      box-shadow: 0 12px 30px rgba(0, 245, 255, 0.14);
+    }
+    .topic-card:active {
+      transform: translateY(-1px) scale(0.995);
+      transition-duration: 0.1s;
+    }
+    .topic-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .topic-badge {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+    .bookmark-btn {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .bookmark-btn.active, .bookmark-btn:hover {
+      color: #facc15;
+      transform: scale(1.2);
+    }
+    .topic-card h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .topic-card p {
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .topic-formula-preview {
+      background: rgba(0, 245, 255, 0.05);
+      border: 1px dashed var(--border);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-family: 'Cambria Math', serif;
+      font-size: 14px;
+      color: var(--cyan);
+      margin-bottom: 18px;
+      text-align: center;
+      overflow-x: auto;
+    }
+    .topic-formula-preview .math-eq {
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      box-shadow: none !important;
+      font-size: 14px !important;
+      color: var(--cyan) !important;
+      text-shadow: none !important;
+      display: inline-flex !important;
+    }
+    .topic-formula-preview .math-frac .num {
+      border-bottom: 1.5px solid var(--cyan) !important;
+      padding: 1px 4px !important;
+    }
+    .topic-card-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-card {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 9px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-card-primary {
+      background: linear-gradient(135deg, #00f5ff, #0284c7);
+      color: #030712;
+    }
+    .btn-card-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(0, 245, 255, 0.4);
+    }
+    .btn-card-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-card-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--cyan);
+    }
+
+    /* 3D WebGL Lab Section */
+    .lab-grid {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 24px;
+      min-height: 660px;
+    }
+    @media (max-width: 980px) {
+      .lab-grid { grid-template-columns: 1fr; }
+    }
+    .viewport-card {
+      background: #02040a;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: inset 0 0 70px rgba(0, 0, 0, 0.95);
+    }
+    #webgl-container {
+      width: 100%;
+      height: 100%;
+      min-height: 540px;
+      flex: 1;
+      cursor: grab;
+      position: relative;
+    }
+    #webgl-container:active { cursor: grabbing; }
+
+    .viewport-overlay {
+      position: absolute;
+      top: 18px; left: 18px;
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+    .viewport-badge {
+      background: rgba(3, 7, 18, 0.85);
+      border: 1px solid var(--border);
+      color: var(--cyan);
+      padding: 5px 12px;
+      border-radius: 7px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      backdrop-filter: blur(8px);
+    }
+    .view-toolbar {
+      position: absolute;
+      bottom: 18px; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      background: rgba(3, 7, 18, 0.85);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 99px;
+      backdrop-filter: blur(12px);
+      z-index: 10;
+    }
+    .view-tool-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 5px 10px;
+      border-radius: 99px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .view-tool-btn:hover, .view-tool-btn.active {
+      color: #fff;
+      background: rgba(0, 245, 255, 0.2);
+    }
+
+    /* Lab Controls Sidebar */
+    .lab-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .hud-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      backdrop-filter: blur(16px);
+    }
+    .hud-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .metrics-display-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .metric-box {
+      background: rgba(10, 16, 32, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px 14px;
+      border-radius: 12px;
+    }
+    .metric-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 3px;
+    }
+    .metric-value {
+      font-size: 18px;
+      font-weight: 800;
+      font-family: monospace;
+      color: var(--cyan);
+    }
+
+    .control-row { margin-bottom: 16px; }
+    .control-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .control-label span { font-family: monospace; color: var(--cyan); }
+    .slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #1e293b;
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+      cursor: pointer;
+    }
+    .preset-chips {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-family: monospace;
+      transition: all 0.2s;
+    }
+    .chip:hover, .chip.active {
+      color: #fff;
+      background: rgba(0, 245, 255, 0.2);
+      border-color: var(--cyan);
+    }
+
+    /* 2D Circuit Workbench */
+    .workbench-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 26px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+    .sim-selector-pills {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 22px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+    .sim-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .sim-pill:hover, .sim-pill.active {
+      background: rgba(0, 245, 255, 0.18);
+      border-color: var(--cyan);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(0, 245, 255, 0.2);
+    }
+
+    .workbench-canvas-wrap {
+      background: #020712;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 22px;
+    }
+    .workbench-canvas {
+      width: 100%;
+      height: 380px;
+      display: block;
+    }
+    .workbench-controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 22px;
+    }
+
+    /* 12 Calculators Suite */
+    .calc-tabs-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+    .calc-tab-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 9px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .calc-tab-btn:hover, .calc-tab-btn.active {
+      background: rgba(0, 245, 255, 0.18);
+      border-color: var(--cyan);
+      color: #fff;
+    }
+
+    .calc-view-panel {
+      display: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      backdrop-filter: blur(16px);
+    }
+    .calc-view-panel.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    .calc-body-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 28px;
+    }
+    @media (max-width: 860px) {
+      .calc-body-grid { grid-template-columns: 1fr; }
+    }
+    .calc-form-group {
+      margin-bottom: 14px;
+    }
+    .calc-form-group label {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .calc-input {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 9px;
+      font-size: 14px;
+      outline: none;
+      font-family: monospace;
+    }
+    .calc-input:focus {
+      border-color: var(--cyan);
+      box-shadow: var(--cyan-glow);
+    }
+    .calc-btn {
+      background: linear-gradient(135deg, #00f5ff, #0284c7);
+      color: #030712;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      margin-top: 10px;
+    }
+    .calc-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(0, 245, 255, 0.4);
+    }
+
+    .calc-results-card {
+      background: rgba(10, 16, 32, 0.85);
+      border: 1px solid rgba(0, 245, 255, 0.25);
+      border-radius: 16px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .calc-res-hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .calc-res-label {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .calc-res-value {
+      font-size: 24px;
+      font-weight: 900;
+      font-family: monospace;
+      color: var(--cyan);
+    }
+    .calc-steps-box {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .calc-step-line {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 8px 12px;
+      border-radius: 8px;
+      border-left: 3px solid var(--cyan);
+      font-family: monospace;
+    }
+
+    /* Master Formulas Vault */
+    .formula-filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .formula-search-input {
+      width: 100%;
+      max-width: 420px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 11px 18px;
+      border-radius: 99px;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .formula-search-input:focus {
+      border-color: var(--cyan);
+      box-shadow: var(--cyan-glow);
+    }
+    .formula-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+    .formula-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(16px);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+      will-change: transform;
+    }
+    .formula-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--cyan);
+      box-shadow: 0 10px 30px rgba(0, 245, 255, 0.15);
+    }
+    .formula-card:active {
+      transform: translateY(-1px) scale(0.995);
+      transition-duration: 0.1s;
+    }
+    .formula-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      gap: 12px;
+    }
+    .formula-card h3 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .formula-unit-tag {
+      font-size: 11px;
+      color: var(--amber);
+      font-family: monospace;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      padding: 3px 8px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    /* Native Mathematical Formula Styling */
+    .math-eq {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-family: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif;
+      font-size: 19px;
+      font-style: italic;
+      color: #ffffff;
+      background: linear-gradient(135deg, rgba(0, 245, 255, 0.08), rgba(139, 92, 246, 0.08));
+      border: 1px solid rgba(0, 245, 255, 0.32);
+      padding: 14px 18px;
+      border-radius: 12px;
+      margin: 12px 0 16px 0;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.45);
+      line-height: 1.25;
+      text-shadow: 0 0 12px rgba(0, 245, 255, 0.35);
+      overflow-x: auto;
+    }
+    .math-frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 4px;
+      font-size: 0.95em;
+    }
+    .math-frac .num {
+      border-bottom: 2px solid var(--cyan);
+      padding: 1px 6px;
+      text-align: center;
+      width: 100%;
+      font-style: normal;
+    }
+    .math-frac .den {
+      padding: 3px 6px 1px;
+      text-align: center;
+      width: 100%;
+      font-style: normal;
+    }
+    .math-eq sup { font-size: 0.7em; vertical-align: super; line-height: 0; font-style: normal; }
+    .math-eq sub { font-size: 0.7em; vertical-align: sub; line-height: 0; font-style: normal; }
+
+    .formula-lines-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 14px;
+    }
+    .theory-line {
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #cbd5e1;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .theory-line .bullet-dot {
+      color: var(--cyan);
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .theory-line b { color: #38bdf8; font-weight: 700; }
+    .vars-block {
+      background: rgba(10, 16, 32, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-top: 6px;
+    }
+    .vars-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+    .var-line {
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: #94a3b8;
+      margin-bottom: 4px;
+      padding-left: 10px;
+      border-left: 2px solid rgba(0, 245, 255, 0.25);
+    }
+    .var-sym {
+      font-family: 'Cambria Math', monospace;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+    .var-unit {
+      color: var(--amber);
+      font-family: monospace;
+      font-size: 11px;
+    }
+
+    /* Practice & Exam Mode Section */
+    .exam-section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 34px;
+      backdrop-filter: blur(16px);
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .exam-mode-switcher {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+    .exam-timer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 245, 255, 0.08);
+      border: 1px solid var(--border);
+      padding: 12px 20px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+    .exam-timer-digits {
+      font-size: 20px;
+      font-weight: 900;
+      font-family: monospace;
+      color: var(--amber);
+    }
+    .quiz-question-box {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    .quiz-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .quiz-opt-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+    }
+    .quiz-opt-btn:hover {
+      background: rgba(0, 245, 255, 0.12);
+      border-color: var(--cyan);
+    }
+    .quiz-opt-btn.correct {
+      background: rgba(16, 185, 129, 0.2) !important;
+      border-color: #10b981 !important;
+      color: #10b981 !important;
+      font-weight: 700;
+    }
+    .quiz-opt-btn.wrong {
+      background: rgba(239, 68, 68, 0.2) !important;
+      border-color: #ef4444 !important;
+      color: #ef4444 !important;
+      font-weight: 700;
+    }
+    .quiz-feedback-box {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border);
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+      display: none;
+    }
+
+    /* Modals (Deep-Dive & Global Search) */
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(14px);
+      z-index: 2000;
+      display: none;
+      place-items: center;
+      padding: 24px;
+    }
+    .modal-backdrop.open { display: grid; }
+    .modal-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-bright);
+      border-radius: 26px;
+      width: 100%;
+      max-width: 940px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .modal-header {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: var(--bg-surface);
+      z-index: 10;
+    }
+    .modal-close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--muted);
+      cursor: pointer;
+      line-height: 1;
+    }
+    .modal-close-btn:hover { color: #fff; }
+
+    .modal-sim-header {
+      height: 240px;
+      background: #020712;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    #canvas-modal-viz {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .modal-tabs-bar {
+      display: flex;
+      gap: 6px;
+      padding: 14px 28px 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-surface);
+      overflow-x: auto;
+    }
+    .modal-tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--muted);
+      padding: 10px 16px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .modal-tab-btn.active {
+      color: var(--cyan);
+      border-bottom-color: var(--cyan);
+    }
+    .modal-content-tab {
+      display: none;
+      padding: 26px 28px;
+    }
+    .modal-content-tab.active { display: block; }
+
+    /* Search Modal (Ctrl+K) */
+    .search-modal-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-bright);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 640px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9);
+      overflow: hidden;
+    }
+    .search-modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .search-modal-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 17px;
+      outline: none;
+    }
+    .search-results-list {
+      max-height: 420px;
+      overflow-y: auto;
+      padding: 10px;
+    }
+    .search-res-item {
+      padding: 12px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.15s;
+    }
+    .search-res-item:hover { background: rgba(0, 245, 255, 0.12); }
+    .search-res-title { font-weight: 700; font-size: 14px; }
+    .search-res-type { font-size: 11px; color: var(--cyan); text-transform: uppercase; }
+
+    /* Voice Settings Popup */
+    .voice-settings-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-bright);
+      border-radius: 18px;
+      padding: 22px;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    /* Utility */
+    .hide { display: none !important; }
+  </style>
+</head>
+<body class="theme-cyber">
+
+  <!-- TOP NAVIGATION -->
+  <nav>
+    <a href="#dash" class="brand">
+      <div class="brand-dot"></div>
+      <span>BEEE MASTER LAB</span>
+      <span class="brand-tag">CHARUSAT</span>
+    </a>
+
+    <div class="nav-links">
+      <a href="#dash" class="nav-btn active">📊 Dashboard</a>
+      <a href="#topics" class="nav-btn">📚 Syllabus</a>
+      <a href="#lab3d" class="nav-btn">🔬 3D Lab</a>
+      <a href="#workbench" class="nav-btn">⚡ 2D Workbench</a>
+      <a href="#calculators" class="nav-btn">🧮 Calculators</a>
+      <a href="#formulas" class="nav-btn">📜 Formulas</a>
+      <a href="#exam" class="nav-btn">📝 Exam</a>
+    </div>
+
+    <div class="nav-actions">
+      <button class="icon-btn" onclick="openSearchModal()" title="Quick Search (Ctrl+K)">🔍</button>
+      
+      <select class="theme-select" id="themeSelect" onchange="changeTheme(this.value)">
+        <option value="theme-cyber">⚡ Cyber Neon</option>
+        <option value="theme-lab">🧪 Virtual Lab</option>
+        <option value="theme-amoled">⚫ AMOLED Black</option>
+        <option value="theme-slate">🌑 Dark Slate</option>
+        <option value="theme-midnight">🌌 Midnight Blue</option>
+        <option value="theme-glass">💎 Glassmorphism</option>
+        <option value="theme-light">☀️ Clean Light</option>
+        <option value="theme-minimal">⚪ Minimalist</option>
+        <option value="theme-contrast">👁️ High Contrast</option>
+      </select>
+
+      <button class="icon-btn" onclick="openVoiceSettings()" title="Narrator Voice Settings">🎙️</button>
+      <button class="icon-btn" id="audioToggleBtn" onclick="toggleAudio()" title="Sound FX">🔊</button>
+      <button class="icon-btn" onclick="toggleFullscreen()" title="Fullscreen">⛶</button>
+    </div>
+  </nav>
+
+  <div id="scroll-progress"></div>
+
+  <!-- 1. DASHBOARD & HERO -->
+  <section id="dash" class="hero-dash">
+    <div class="hero-top-banner">
+      <div class="hero-title-box">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+          <span class="brand-tag">BEEE-101 / 26EC054</span>
+          <span style="font-size:12px; color:var(--muted); font-weight:600;">CHAROTAR UNIVERSITY OF SCIENCE AND TECHNOLOGY</span>
+        </div>
+        <h1>Basic Electrical & <em>Electronics</em> Engineering Master Laboratory</h1>
+        <p>Complete curriculum portal covering 100% of syllabus across Electrical Concepts, Circuit Analysis & Network Theorems, and Electrostatics with 3D WebGL models, 2D physics workbenches, and 12 engineering calculators.</p>
+      </div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="#workbench" class="btn-card btn-card-primary" style="padding:14px 26px; font-size:14px; text-decoration:none;">⚡ Launch Workbench</a>
+        <a href="#exam" class="btn-card btn-card-secondary" style="padding:14px 26px; font-size:14px; text-decoration:none;">📝 Take Mock Exam</a>
+      </div>
+    </div>
+
+    <!-- Live Course Progress & Metrics Grid -->
+    <div class="dash-metrics-grid">
+      <!-- Overall Progress -->
+      <div class="metric-card">
+        <div class="metric-ring-wrap">
+          <svg class="metric-ring-svg" viewBox="0 0 36 36">
+            <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <path class="ring-val" id="dashRingOverall" stroke="#00f5ff" stroke-dasharray="100, 100" stroke-dashoffset="65" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+          </svg>
+          <div class="ring-percent" id="dashTxtOverall">35%</div>
+        </div>
+        <div class="metric-info">
+          <h4>Course Completion</h4>
+          <div class="metric-num" id="dashStatOverall">11 / 32 Topics</div>
+        </div>
+      </div>
+
+      <!-- Unit 1 Progress -->
+      <div class="metric-card">
+        <div class="metric-ring-wrap">
+          <svg class="metric-ring-svg" viewBox="0 0 36 36">
+            <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <path class="ring-val" stroke="#00f5ff" stroke-dasharray="100, 100" stroke-dashoffset="40" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+          </svg>
+          <div class="ring-percent">Unit 1</div>
+        </div>
+        <div class="metric-info">
+          <h4>Electrical Concepts</h4>
+          <div class="metric-num">14 Topics</div>
+        </div>
+      </div>
+
+      <!-- Unit 2 Progress -->
+      <div class="metric-card">
+        <div class="metric-ring-wrap">
+          <svg class="metric-ring-svg" viewBox="0 0 36 36">
+            <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <path class="ring-val" stroke="#a855f7" stroke-dasharray="100, 100" stroke-dashoffset="50" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+          </svg>
+          <div class="ring-percent">Unit 2</div>
+        </div>
+        <div class="metric-info">
+          <h4>Circuit Analysis</h4>
+          <div class="metric-num">11 Topics</div>
+        </div>
+      </div>
+
+      <!-- Unit 3 Progress -->
+      <div class="metric-card">
+        <div class="metric-ring-wrap">
+          <svg class="metric-ring-svg" viewBox="0 0 36 36">
+            <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <path class="ring-val" stroke="#10b981" stroke-dasharray="100, 100" stroke-dashoffset="20" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+          </svg>
+          <div class="ring-percent">Unit 3</div>
+        </div>
+        <div class="metric-info">
+          <h4>Electrostatics</h4>
+          <div class="metric-num">7 Topics</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. SYLLABUS & TOPIC CATALOG -->
+  <section id="topics" class="section-wrap">
+    <div class="section-header">
+      <span class="section-label">CURRICULUM SYLLABUS CATALOG</span>
+      <h2 class="section-title">Explore All 32 Engineering Topics</h2>
+      <p class="section-desc">Zero-omission curriculum from official CHARUSAT course outlines. Each topic features interactive simulations, line-by-line concept breakdowns, mathematical derivations, and solved exam problems.</p>
+    </div>
+
+    <!-- Filter & Search Toolbar -->
+    <div class="topic-filter-bar">
+      <div class="unit-pills">
+        <button class="unit-pill active" onclick="filterTopics('all', this)">All Units (32)</button>
+        <button class="unit-pill" onclick="filterTopics('u1', this)">Unit 1: Electrical Concepts (14)</button>
+        <button class="unit-pill" onclick="filterTopics('u2', this)">Unit 2: Circuit Analysis (11)</button>
+        <button class="unit-pill" onclick="filterTopics('u3', this)">Unit 3: Electrostatics (7)</button>
+        <button class="unit-pill" onclick="filterTopics('bookmarks', this)">⭐ Bookmarks</button>
+      </div>
+
+      <input type="text" class="topic-search-box" placeholder="🔍 Search topics, theorems, formulas..." oninput="searchTopics(this.value)">
+    </div>
+
+    <!-- Dynamic Topics Grid -->
+    <div class="topics-grid" id="topicsGridContainer">
+      <!-- Populated dynamically via JS -->
+    </div>
+  </section>
+
+  <!-- 3. 3D VIRTUAL DEVICE LABORATORY -->
+  <section id="lab3d" class="section-wrap" style="background:#02050e;">
+    <div class="section-header">
+      <span class="section-label">HARDWARE DEVICE SIMULATION</span>
+      <h2 class="section-title">3D Virtual Device Laboratory</h2>
+      <p class="section-desc">Interact with procedural 3D physical instruments rendered in real-time WebGL. Inspect internal structures, cutaway layers, electrostatic field lines, and trigger electric spark discharges.</p>
+    </div>
+
+    <!-- Device Switcher -->
+    <div style="display:flex; justify-content:center; gap:12px; margin-bottom:24px; flex-wrap:wrap;">
+      <button class="sim-pill active" onclick="switch3DDevice('parallel_plate', this)">⚡ Parallel-Plate Capacitor</button>
+      <button class="sim-pill" onclick="switch3DDevice('rolled_capacitor', this)">🥫 Rolled Electrolytic Capacitor</button>
+      <button class="sim-pill" onclick="switch3DDevice('electroscope', this)">🥇 Gold Leaf Electroscope</button>
+    </div>
+
+    <div class="lab-grid">
+      <!-- 3D Viewport -->
+      <div class="viewport-card">
+        <div class="viewport-overlay">
+          <span class="viewport-badge" id="hudDeviceName">DEVICE: PARALLEL-PLATE CAPACITOR</span>
+          <span class="viewport-badge" style="color:var(--emerald);">60 FPS WEBGL</span>
+        </div>
+
+        <div id="webgl-container"></div>
+
+        <div class="view-toolbar">
+          <button class="view-tool-btn active" onclick="setCameraPreset('iso', this)">Isometric</button>
+          <button class="view-tool-btn" onclick="setCameraPreset('front', this)">Front</button>
+          <button class="view-tool-btn" onclick="setCameraPreset('top', this)">Top</button>
+          <button class="view-tool-btn" onclick="setCameraPreset('core', this)">Core Cutaway</button>
+          <button class="view-tool-btn" onclick="toggleAutoRotate(this)">Rotate</button>
+          <button class="view-tool-btn" onclick="resetView()">Reset</button>
+        </div>
+      </div>
+
+      <!-- 3D Lab Sidebar Controls -->
+      <div class="lab-sidebar">
+        <!-- Live HUD Metrics -->
+        <div class="hud-card">
+          <div class="hud-title">
+            <span>ELECTRICAL METRICS HUD</span>
+            <span id="powerStatusTag" style="color:var(--cyan);">POWER: ON</span>
+          </div>
+          <div class="metrics-display-grid">
+            <div class="metric-box">
+              <div class="metric-label">Capacitance</div>
+              <div class="metric-value" id="txtCapacitance">124.5 pF</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">Stored Charge</div>
+              <div class="metric-value" id="txtCharge">62.3 nC</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">Stored Energy</div>
+              <div class="metric-value" id="txtEnergy">15.6 μJ</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">Field Intensity</div>
+              <div class="metric-value" id="txtField">50.0 kV/m</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Physics Parameters -->
+        <div class="hud-card">
+          <div class="hud-title"><span>PHYSICAL LAB CONTROLS</span></div>
+
+          <!-- Voltage Slider -->
+          <div class="control-row">
+            <div class="control-label">
+              <span>Applied Voltage (V)</span>
+              <span id="txtPlateVoltage">500 V</span>
+            </div>
+            <input type="range" class="slider" id="voltageSlider" min="0" max="1000" step="10" value="500" oninput="onVoltageChange(this.value)">
+          </div>
+
+          <!-- Plate Distance -->
+          <div class="control-row">
+            <div class="control-label">
+              <span>Plate Separation Distance (d)</span>
+              <span id="txtDistance">10.0 mm</span>
+            </div>
+            <input type="range" class="slider" id="distSlider" min="2" max="30" step="0.5" value="10" oninput="onDistanceChange(this.value)">
+          </div>
+
+          <!-- Dielectric Insertion -->
+          <div class="control-row">
+            <div class="control-label">
+              <span>Dielectric Slab Insertion</span>
+              <span id="txtInsert">100%</span>
+            </div>
+            <input type="range" class="slider" id="insertSlider" min="0" max="1" step="0.05" value="1" oninput="onDielectricInsertChange(this.value)">
+          </div>
+
+          <!-- Dielectric Material Preset -->
+          <div class="control-row">
+            <div class="control-label"><span>Dielectric Material (ε_r)</span></div>
+            <div class="preset-chips">
+              <button class="chip" onclick="setDielectricType('vacuum', this)">Vacuum (1.0)</button>
+              <button class="chip active" onclick="setDielectricType('mica', this)">Mica (6.0)</button>
+              <button class="chip" onclick="setDielectricType('glass', this)">Glass (4.5)</button>
+              <button class="chip" onclick="setDielectricType('ceramic', this)">Ceramic (80.0)</button>
+            </div>
+          </div>
+
+          <!-- Interactive Actions -->
+          <div style="display:flex; gap:10px; margin-top:16px;">
+            <button class="btn-card btn-card-primary" id="powerBtn" onclick="togglePower()">⚡ Power: ON</button>
+            <button class="btn-card btn-card-secondary" onclick="triggerSparkArc()">💥 Discharge Arc</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 2D CIRCUIT WORKBENCH -->
+  <section id="workbench" class="section-wrap">
+    <div class="section-header">
+      <span class="section-label">INTERACTIVE 2D SIMULATION SUITE</span>
+      <h2 class="section-title">2D Circuit Simulation Workbench</h2>
+      <p class="section-desc">Experience 60fps dynamic physics visualizers with animated electron flows, live meter readouts, real-time V-I curves, and conservation of charge and energy verifications.</p>
+    </div>
+
+    <div class="workbench-card">
+      <!-- Simulator Selector Pills -->
+      <div class="sim-selector-pills">
+        <button class="sim-pill active" onclick="switchWorkbenchSim('ohm_law', this)">⚡ Ohm's Law & V-I Curve</button>
+        <button class="sim-pill" onclick="switchWorkbenchSim('series_vdr', this)">🔗 Series Circuit & VDR</button>
+        <button class="sim-pill" onclick="switchWorkbenchSim('parallel_cdr', this)">🔀 Parallel Circuit & CDR</button>
+        <button class="sim-pill" onclick="switchWorkbenchSim('kcl_junction', this)">🎯 KCL Junction Pulser</button>
+        <button class="sim-pill" onclick="switchWorkbenchSim('kvl_loop', this)">🔄 KVL Loop Tracer</button>
+        <button class="sim-pill" onclick="switchWorkbenchSim('star_delta', this)">🔺 Star-Delta Converter</button>
+        <button class="sim-pill" onclick="switchWorkbenchSim('temp_coeff', this)">🌡️ Temp vs Resistance</button>
+        <button class="sim-pill" onclick="switchWorkbenchSim('color_code', this)">🎨 Resistor Color Code</button>
+        <button class="sim-pill" onclick="switchWorkbenchSim('rc_transient', this)">⏱️ RC Transient Scope</button>
+        <button class="sim-pill" onclick="switchWorkbenchSim('wire_geom', this)">📏 Wire Geometry (ρl/A)</button>
+        <button class="sim-pill" onclick="switchWorkbenchSim('household', this)">🏠 Household Wiring & MCB</button>
+      </div>
+
+      <!-- Workbench Canvas -->
+      <div class="workbench-canvas-wrap">
+        <canvas id="workbenchCanvas" class="workbench-canvas"></canvas>
+      </div>
+
+      <!-- Dynamic Controls Container for active simulation -->
+      <div class="workbench-controls-grid" id="workbenchControlsContainer">
+        <!-- Injected via JS based on selected simulation -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 12 ENGINEERING CALCULATORS HUB -->
+  <section id="calculators" class="section-wrap" style="background:#02050e;">
+    <div class="section-header">
+      <span class="section-label">STEP-BY-STEP ENGINEERING SUITE</span>
+      <h2 class="section-title">12 Interactive Engineering Calculators</h2>
+      <p class="section-desc">Perform precise calculations across all three units with instant step-by-step substitutions, SI unit checks, and physical law explanations.</p>
+    </div>
+
+    <!-- Calculator Selector Tabs -->
+    <div class="calc-tabs-bar">
+      <button class="calc-tab-btn active" onclick="switchCalc('ohm', this)">1. Ohm's Law & Power</button>
+      <button class="calc-tab-btn" onclick="switchCalc('energy', this)">2. Energy & Utility Tariff</button>
+      <button class="calc-tab-btn" onclick="switchCalc('wire', this)">3. Resistance Geometry</button>
+      <button class="calc-tab-btn" onclick="switchCalc('temp', this)">4. Temp Coefficient</button>
+      <button class="calc-tab-btn" onclick="switchCalc('series', this)">5. Series VDR</button>
+      <button class="calc-tab-btn" onclick="switchCalc('parallel', this)">6. Parallel CDR</button>
+      <button class="calc-tab-btn" onclick="switchCalc('stardelta', this)">7. Star-Delta Y-Δ</button>
+      <button class="calc-tab-btn" onclick="switchCalc('inductor', this)">8. Inductor EMF & Energy</button>
+      <button class="calc-tab-btn" onclick="switchCalc('rc', this)">9. Capacitance & RC</button>
+      <button class="calc-tab-btn" onclick="switchCalc('coulomb', this)">10. Coulomb's Force</button>
+      <button class="calc-tab-btn" onclick="switchCalc('composite', this)">11. Composite Dielectric</button>
+      <button class="calc-tab-btn" onclick="switchCalc('color', this)">12. Resistor Color Decoder</button>
+    </div>
+
+    <!-- 1. Ohm's Law Calculator Panel -->
+    <div class="calc-view-panel active" id="panel-calc-ohm">
+      <div class="calc-body-grid">
+        <div>
+          <h3 style="margin-bottom:14px;">Ohm's Law & DC Power Solver</h3>
+          <p style="color:var(--muted); font-size:13px; margin-bottom:16px;">Enter any TWO parameters; the remaining two are computed instantly.</p>
+          <div class="calc-form-group"><label>Voltage V (Volts):</label><input type="number" id="c1_v" class="calc-input" placeholder="e.g. 12" value="12" oninput="runCalcOhm()"></div>
+          <div class="calc-form-group"><label>Current I (Amperes):</label><input type="number" id="c1_i" class="calc-input" placeholder="e.g. 2" oninput="runCalcOhm()"></div>
+          <div class="calc-form-group"><label>Resistance R (Ohms):</label><input type="number" id="c1_r" class="calc-input" placeholder="e.g. 6" value="6" oninput="runCalcOhm()"></div>
+          <div class="calc-form-group"><label>Power P (Watts):</label><input type="number" id="c1_p" class="calc-input" placeholder="e.g. 24" oninput="runCalcOhm()"></div>
+          <button class="calc-btn" onclick="runCalcOhm()">⚡ Calculate</button>
+        </div>
+        <div class="calc-results-card">
+          <div class="calc-res-hero">
+            <span class="calc-res-label">Calculated Power:</span>
+            <span class="calc-res-value" id="c1_resPower">24.00 W</span>
+          </div>
+          <div class="calc-steps-box" id="c1_steps"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Energy & Utility Tariff Panel -->
+    <div class="calc-view-panel" id="panel-calc-energy">
+      <div class="calc-body-grid">
+        <div>
+          <h3 style="margin-bottom:14px;">Electrical Energy & Utility Billing Calculator</h3>
+          <div class="calc-form-group"><label>Load Power Rating (Watts):</label><input type="number" id="c2_power" class="calc-input" value="1500" oninput="runCalcEnergy()"></div>
+          <div class="calc-form-group"><label>Operating Hours per Day:</label><input type="number" id="c2_hours" class="calc-input" value="6" oninput="runCalcEnergy()"></div>
+          <div class="calc-form-group"><label>Days in Billing Cycle:</label><input type="number" id="c2_days" class="calc-input" value="30" oninput="runCalcEnergy()"></div>
+          <div class="calc-form-group"><label>Tariff Rate (₹ / kWh Unit):</label><input type="number" id="c2_rate" class="calc-input" value="7.50" oninput="runCalcEnergy()"></div>
+          <button class="calc-btn" onclick="runCalcEnergy()">⚡ Calculate Bill</button>
+        </div>
+        <div class="calc-results-card">
+          <div class="calc-res-hero">
+            <span class="calc-res-label">Total Electricity Bill:</span>
+            <span class="calc-res-value" id="c2_resCost">₹ 2,025.00</span>
+          </div>
+          <div class="calc-steps-box" id="c2_steps"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Wire Geometry (R = ρl/A) Panel -->
+    <div class="calc-view-panel" id="panel-calc-wire">
+      <div class="calc-body-grid">
+        <div>
+          <h3 style="margin-bottom:14px;">Conductor Resistance by Geometry (R = ρ·l / A)</h3>
+          <div class="calc-form-group">
+            <label>Conductor Material:</label>
+            <select id="c3_mat" class="calc-input" onchange="runCalcWire()">
+              <option value="copper">Copper (ρ = 1.72 × 10⁻⁸ Ω·m)</option>
+              <option value="aluminum">Aluminum (ρ = 2.82 × 10⁻⁸ Ω·m)</option>
+              <option value="silver">Silver (ρ = 1.59 × 10⁻⁸ Ω·m)</option>
+              <option value="nichrome">Nichrome Heater (ρ = 100 × 10⁻⁸ Ω·m)</option>
+            </select>
+          </div>
+          <div class="calc-form-group"><label>Length l (meters):</label><input type="number" id="c3_length" class="calc-input" value="50" oninput="runCalcWire()"></div>
+          <div class="calc-form-group"><label>Cross-Sectional Area A (mm²):</label><input type="number" id="c3_area" class="calc-input" value="2.5" oninput="runCalcWire()"></div>
+          <div class="calc-form-group"><label>Operating Current I (Amperes):</label><input type="number" id="c3_current" class="calc-input" value="10" oninput="runCalcWire()"></div>
+          <button class="calc-btn" onclick="runCalcWire()">⚡ Calculate</button>
+        </div>
+        <div class="calc-results-card">
+          <div class="calc-res-hero">
+            <span class="calc-res-label">Conductor Resistance:</span>
+            <span class="calc-res-value" id="c3_resR">0.34400 Ω</span>
+          </div>
+          <div class="calc-steps-box" id="c3_steps"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Temp Coefficient Panel -->
+    <div class="calc-view-panel" id="panel-calc-temp">
+      <div class="calc-body-grid">
+        <div>
+          <h3 style="margin-bottom:14px;">Temperature Coefficient of Resistance (Rt = R0[1 + α0·Δt])</h3>
+          <div class="calc-form-group"><label>Initial Resistance R₁ (Ohms):</label><input type="number" id="c4_r1" class="calc-input" value="100" oninput="runCalcTemp()"></div>
+          <div class="calc-form-group"><label>Initial Temperature t₁ (°C):</label><input type="number" id="c4_t1" class="calc-input" value="0" oninput="runCalcTemp()"></div>
+          <div class="calc-form-group"><label>Final Operating Temperature t₂ (°C):</label><input type="number" id="c4_t2" class="calc-input" value="75" oninput="runCalcTemp()"></div>
+          <div class="calc-form-group"><label>Temp Coefficient α₀ (at 0°C, /°C):</label><input type="number" id="c4_alpha" class="calc-input" value="0.00428" step="0.0001" oninput="runCalcTemp()"></div>
+          <button class="calc-btn" onclick="runCalcTemp()">⚡ Calculate</button>
+        </div>
+        <div class="calc-results-card">
+          <div class="calc-res-hero">
+            <span class="calc-res-label">New Resistance R₂:</span>
+            <span class="calc-res-value" id="c4_resR2">132.100 Ω</span>
+          </div>
+          <div class="calc-steps-box" id="c4_steps"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Series Resistors & VDR Panel -->
+    <div class="calc-view-panel" id="panel-calc-series">
+      <div class="calc-body-grid">
+        <div>
+          <h3 style="margin-bottom:14px;">Series Resistors & Voltage Divider Rule (VDR)</h3>
+          <div class="calc-form-group"><label>DC Supply Voltage Vs (Volts):</label><input type="number" id="c5_vs" class="calc-input" value="48" oninput="runCalcSeries()"></div>
+          <div class="calc-form-group"><label>Resistor R₁ (Ω):</label><input type="number" id="c5_r1" class="calc-input" value="10" oninput="runCalcSeries()"></div>
+          <div class="calc-form-group"><label>Resistor R₂ (Ω):</label><input type="number" id="c5_r2" class="calc-input" value="20" oninput="runCalcSeries()"></div>
+          <div class="calc-form-group"><label>Resistor R₃ (Ω):</label><input type="number" id="c5_r3" class="calc-input" value="30" oninput="runCalcSeries()"></div>
+          <button class="calc-btn" onclick="runCalcSeries()">⚡ Calculate VDR</button>
+        </div>
+        <div class="calc-results-card">
+          <div class="calc-res-hero">
+            <span class="calc-res-label">Equivalent Req:</span>
+            <span class="calc-res-value" id="c5_resReq">60.000 Ω</span>
+          </div>
+          <div class="calc-steps-box" id="c5_steps"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Parallel Resistors & CDR Panel -->
+    <div class="calc-view-panel" id="panel-calc-parallel">
+      <div class="calc-body-grid">
+        <div>
+          <h3 style="margin-bottom:14px;">Parallel Resistors & Current Divider Rule (CDR)</h3>
+          <div class="calc-form-group"><label>Total Applied Voltage V (Volts):</label><input type="number" id="c6_v" class="calc-input" value="24" oninput="runCalcParallel()"></div>
+          <div class="calc-form-group"><label>Resistor R₁ (Ω):</label><input type="number" id="c6_r1" class="calc-input" value="12" oninput="runCalcParallel()"></div>
+          <div class="calc-form-group"><label>Resistor R₂ (Ω):</label><input type="number" id="c6_r2" class="calc-input" value="24" oninput="runCalcParallel()"></div>
+          <div class="calc-form-group"><label>Resistor R₃ (Ω):</label><input type="number" id="c6_r3" class="calc-input" value="48" oninput="runCalcParallel()"></div>
+          <button class="calc-btn" onclick="runCalcParallel()">⚡ Calculate CDR</button>
+        </div>
+        <div class="calc-results-card">
+          <div class="calc-res-hero">
+            <span class="calc-res-label">Total Current Itotal:</span>
+            <span class="calc-res-value" id="c6_resItotal">3.500 A</span>
+          </div>
+          <div class="calc-steps-box" id="c6_steps"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Star-Delta Transformation Panel -->
+    <div class="calc-view-panel" id="panel-calc-stardelta">
+      <div class="calc-body-grid">
+        <div>
+          <h3 style="margin-bottom:14px;">Star-Delta (Y ↔ Δ) Transformation</h3>
+          <div class="calc-form-group">
+            <label>Conversion Mode:</label>
+            <select id="c7_mode" class="calc-input" onchange="runCalcStarDelta()">
+              <option value="star_to_delta">Star (Y) to Delta (Δ)</option>
+              <option value="delta_to_star">Delta (Δ) to Star (Y)</option>
+            </select>
+          </div>
+          <div class="calc-form-group"><label id="c7_l1">Resistor R_A / R_AB (Ω):</label><input type="number" id="c7_r1" class="calc-input" value="10" oninput="runCalcStarDelta()"></div>
+          <div class="calc-form-group"><label id="c7_l2">Resistor R_B / R_BC (Ω):</label><input type="number" id="c7_r2" class="calc-input" value="20" oninput="runCalcStarDelta()"></div>
+          <div class="calc-form-group"><label id="c7_l3">Resistor R_C / R_CA (Ω):</label><input type="number" id="c7_r3" class="calc-input" value="30" oninput="runCalcStarDelta()"></div>
+          <button class="calc-btn" onclick="runCalcStarDelta()">⚡ Convert Network</button>
+        </div>
+        <div class="calc-results-card">
+          <div class="calc-res-hero">
+            <span class="calc-res-label">Converted Branches:</span>
+            <span class="calc-res-value" id="c7_resTitle">Transformed</span>
+          </div>
+          <div class="calc-steps-box" id="c7_steps"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Inductance & Energy Panel -->
+    <div class="calc-view-panel" id="panel-calc-inductor">
+      <div class="calc-body-grid">
+        <div>
+          <h3 style="margin-bottom:14px;">Inductor Induced EMF & Magnetic Stored Energy</h3>
+          <div class="calc-form-group"><label>Inductance L (milliHenrys, mH):</label><input type="number" id="c8_l" class="calc-input" value="100" oninput="runCalcInductor()"></div>
+          <div class="calc-form-group"><label>Current Change Δi (Amperes):</label><input type="number" id="c8_di" class="calc-input" value="4" oninput="runCalcInductor()"></div>
+          <div class="calc-form-group"><label>Time Duration Δt (milliseconds, ms):</label><input type="number" id="c8_dt" class="calc-input" value="20" oninput="runCalcInductor()"></div>
+          <div class="calc-form-group"><label>Steady Peak Current I (Amperes):</label><input type="number" id="c8_i" class="calc-input" value="5" oninput="runCalcInductor()"></div>
+          <button class="calc-btn" onclick="runCalcInductor()">⚡ Calculate</button>
+        </div>
+        <div class="calc-results-card">
+          <div class="calc-res-hero">
+            <span class="calc-res-label">Induced Back-EMF:</span>
+            <span class="calc-res-value" id="c8_resEmf">-20.00 V</span>
+          </div>
+          <div class="calc-steps-box" id="c8_steps"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Capacitance & RC Transient Panel -->
+    <div class="calc-view-panel" id="panel-calc-rc">
+      <div class="calc-body-grid">
+        <div>
+          <h3 style="margin-bottom:14px;">Capacitance Transient & Time Constant (τ = RC)</h3>
+          <div class="calc-form-group"><label>Supply Voltage Vs (Volts):</label><input type="number" id="c9_vs" class="calc-input" value="12" oninput="runCalcRC()"></div>
+          <div class="calc-form-group"><label>Charging Resistance R (Ohms):</label><input type="number" id="c9_r" class="calc-input" value="1000" oninput="runCalcRC()"></div>
+          <div class="calc-form-group"><label>Capacitance C (microFarads, μF):</label><input type="number" id="c9_c" class="calc-input" value="220" oninput="runCalcRC()"></div>
+          <div class="calc-form-group"><label>Elapsed Time t (milliseconds, ms):</label><input type="number" id="c9_t" class="calc-input" value="220" oninput="runCalcRC()"></div>
+          <button class="calc-btn" onclick="runCalcRC()">⚡ Calculate RC</button>
+        </div>
+        <div class="calc-results-card">
+          <div class="calc-res-hero">
+            <span class="calc-res-label">Capacitor Voltage vC(t):</span>
+            <span class="calc-res-value" id="c9_resVc">7.58 V</span>
+          </div>
+          <div class="calc-steps-box" id="c9_steps"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. Coulomb's Law Force Panel -->
+    <div class="calc-view-panel" id="panel-calc-coulomb">
+      <div class="calc-body-grid">
+        <div>
+          <h3 style="margin-bottom:14px;">Coulomb's Law Electrostatic Force & Electric Field</h3>
+          <div class="calc-form-group"><label>Point Charge q₁ (microCoulombs, μC):</label><input type="number" id="c10_q1" class="calc-input" value="5" oninput="runCalcCoulomb()"></div>
+          <div class="calc-form-group"><label>Point Charge q₂ (microCoulombs, μC):</label><input type="number" id="c10_q2" class="calc-input" value="8" oninput="runCalcCoulomb()"></div>
+          <div class="calc-form-group"><label>Distance of Separation r (cm):</label><input type="number" id="c10_r" class="calc-input" value="20" oninput="runCalcCoulomb()"></div>
+          <div class="calc-form-group"><label>Relative Permittivity ε_r (Air=1):</label><input type="number" id="c10_er" class="calc-input" value="1" oninput="runCalcCoulomb()"></div>
+          <button class="calc-btn" onclick="runCalcCoulomb()">⚡ Calculate Force</button>
+        </div>
+        <div class="calc-results-card">
+          <div class="calc-res-hero">
+            <span class="calc-res-label">Electrostatic Force F:</span>
+            <span class="calc-res-value" id="c10_resF">8.988 N</span>
+          </div>
+          <div class="calc-steps-box" id="c10_steps"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. Composite Dielectric Capacitor Panel -->
+    <div class="calc-view-panel" id="panel-calc-composite">
+      <div class="calc-body-grid">
+        <div>
+          <h3 style="margin-bottom:14px;">Parallel-Plate Capacitor with Composite Dielectrics</h3>
+          <div class="calc-form-group"><label>Plate Area A (cm²):</label><input type="number" id="c11_a" class="calc-input" value="150" oninput="runCalcComposite()"></div>
+          <div class="calc-form-group"><label>Total Separation d (mm):</label><input type="number" id="c11_d" class="calc-input" value="6" oninput="runCalcComposite()"></div>
+          <div class="calc-form-group"><label>Dielectric 1: Thickness t₁ (mm) & ε_r1:</label>
+            <div style="display:flex; gap:8px;">
+              <input type="number" id="c11_t1" class="calc-input" value="2" placeholder="t1 (mm)" oninput="runCalcComposite()">
+              <input type="number" id="c11_er1" class="calc-input" value="5" placeholder="er1" oninput="runCalcComposite()">
+            </div>
+          </div>
+          <div class="calc-form-group"><label>Dielectric 2: Thickness t₂ (mm) & ε_r2:</label>
+            <div style="display:flex; gap:8px;">
+              <input type="number" id="c11_t2" class="calc-input" value="2" placeholder="t2 (mm)" oninput="runCalcComposite()">
+              <input type="number" id="c11_er2" class="calc-input" value="6" placeholder="er2" oninput="runCalcComposite()">
+            </div>
+          </div>
+          <div class="calc-form-group"><label>Applied Voltage (Volts):</label><input type="number" id="c11_v" class="calc-input" value="200" oninput="runCalcComposite()"></div>
+          <button class="calc-btn" onclick="runCalcComposite()">⚡ Calculate</button>
+        </div>
+        <div class="calc-results-card">
+          <div class="calc-res-hero">
+            <span class="calc-res-label">Capacitance:</span>
+            <span class="calc-res-value" id="c11_resC">48.65 pF</span>
+          </div>
+          <div class="calc-steps-box" id="c11_steps"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. Resistor Color Decoder Panel -->
+    <div class="calc-view-panel" id="panel-calc-color">
+      <div class="calc-body-grid">
+        <div>
+          <h3 style="margin-bottom:14px;">Resistor Color Code Band Decoder</h3>
+          <div class="calc-form-group">
+            <label>1st Band (1st Digit):</label>
+            <select id="c12_b1" class="calc-input" onchange="runCalcColor()">
+              <option value="1">Brown (1)</option><option value="2">Red (2)</option><option value="3">Orange (3)</option>
+              <option value="4" selected>Yellow (4)</option><option value="5">Green (5)</option><option value="6">Blue (6)</option>
+              <option value="7">Violet (7)</option><option value="8">Gray (8)</option><option value="9">White (9)</option>
+            </select>
+          </div>
+          <div class="calc-form-group">
+            <label>2nd Band (2nd Digit):</label>
+            <select id="c12_b2" class="calc-input" onchange="runCalcColor()">
+              <option value="0">Black (0)</option><option value="1">Brown (1)</option><option value="2">Red (2)</option>
+              <option value="3">Orange (3)</option><option value="4">Yellow (4)</option><option value="5">Green (5)</option>
+              <option value="6">Blue (6)</option><option value="7" selected>Violet (7)</option><option value="8">Gray (8)</option><option value="9">White (9)</option>
+            </select>
+          </div>
+          <div class="calc-form-group">
+            <label>Multiplier Band:</label>
+            <select id="c12_b3" class="calc-input" onchange="runCalcColor()">
+              <option value="1">Black (×1 Ω)</option><option value="10">Brown (×10 Ω)</option>
+              <option value="100" selected>Red (×100 Ω)</option><option value="1000">Orange (×1 kΩ)</option>
+              <option value="10000">Yellow (×10 kΩ)</option><option value="100000">Green (×100 kΩ)</option>
+              <option value="1000000">Blue (×1 MΩ)</option><option value="0.1">Gold (×0.1 Ω)</option><option value="0.01">Silver (×0.01 Ω)</option>
+            </select>
+          </div>
+          <div class="calc-form-group">
+            <label>Tolerance Band:</label>
+            <select id="c12_tol" class="calc-input" onchange="runCalcColor()">
+              <option value="5" selected>Gold (±5%)</option>
+              <option value="10">Silver (±10%)</option>
+              <option value="1">Brown (±1%)</option>
+              <option value="2">Red (±2%)</option>
+            </select>
+          </div>
+          <button class="calc-btn" onclick="runCalcColor()">⚡ Decode Resistor</button>
+        </div>
+        <div class="calc-results-card">
+          <div class="calc-res-hero">
+            <span class="calc-res-label">Decoded Resistance:</span>
+            <span class="calc-res-value" id="c12_resNominal">4.70 kΩ</span>
+          </div>
+          <div class="calc-steps-box" id="c12_steps"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. MASTER FORMULAS VAULT -->
+  <section id="formulas" class="section-wrap">
+    <div class="section-header">
+      <span class="section-label">MASTER EQUATION VAULT</span>
+      <h2 class="section-title">Comprehensive Formula Vault</h2>
+      <p class="section-desc">26 essential engineering formulas spanning electrical circuits, mesh/nodal analysis, induction, capacitance, and electrostatics with native visual math formatting.</p>
+    </div>
+
+    <div class="formula-filter-bar">
+      <div class="unit-pills">
+        <button class="unit-pill active" onclick="filterFormulas('all', this)">All Formulas (26)</button>
+        <button class="unit-pill" onclick="filterFormulas('u1', this)">Unit 1 (10)</button>
+        <button class="unit-pill" onclick="filterFormulas('u2', this)">Unit 2 (9)</button>
+        <button class="unit-pill" onclick="filterFormulas('u3', this)">Unit 3 (7)</button>
+      </div>
+
+      <input type="text" class="formula-search-input" id="formulaSearchInput" placeholder="🔍 Search formula by symbol, name, or unit..." oninput="searchFormulas(this.value)">
+    </div>
+
+    <div class="formula-grid" id="formulaGridContainer">
+      <!-- Injected dynamically via JS -->
+    </div>
+  </section>
+
+  <!-- 7. PRACTICE QUIZ & TIMED EXAM -->
+  <section id="exam" class="section-wrap" style="background:#02050e;">
+    <div class="section-header">
+      <span class="section-label">EXAMINATION READINESS SYSTEM</span>
+      <h2 class="section-title">Practice & Timed Exam Mode</h2>
+      <p class="section-desc">Evaluate your mastery of BEEE with curriculum-calibrated multiple-choice problems featuring instant mathematical feedback and timed exam simulations.</p>
+    </div>
+
+    <div class="exam-section-card">
+      <div class="exam-mode-switcher">
+        <button class="sim-pill active" id="btnModePractice" onclick="setExamMode('practice')">🎯 Practice Mode (Instant Explanations)</button>
+        <button class="sim-pill" id="btnModeTimed" onclick="setExamMode('timed')">⏱️ Timed Mock Exam (15 Qs, 15 Mins)</button>
+      </div>
+
+      <div class="exam-timer-bar">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span class="brand-tag" id="examQBadge">QUESTION 1 OF 15</span>
+          <span style="font-size:13px; color:var(--muted);" id="examUnitTag">Unit 1: Electrical Concepts</span>
+        </div>
+        <div class="exam-timer-digits" id="examTimerDisplay">15:00</div>
+      </div>
+
+      <div class="quiz-question-box" id="examQuestionText">
+        Loading question...
+      </div>
+
+      <div class="quiz-options-list" id="examOptionsContainer">
+        <!-- Injected via JS -->
+      </div>
+
+      <div class="quiz-feedback-box" id="examFeedbackBox">
+        <div style="font-weight:700; color:#10b981; margin-bottom:6px;" id="feedbackTitle">✓ Correct!</div>
+        <div id="feedbackText" style="color:var(--text);">Explanation details...</div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:24px;">
+        <button class="btn-card btn-card-secondary" onclick="prevExamQuestion()">← Previous</button>
+        <button class="btn-card btn-card-primary" id="btnNextExam" onclick="nextExamQuestion()">Next Question →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="padding:40px 4vw; text-align:center; border-top:1px solid var(--border); color:var(--muted); font-size:13px;">
+    <p>© Basic Electrical and Electronics Engineering (BEEE) Master Platform • CHARUSAT University • Fully Offline Capable</p>
+  </footer>
+
+  <!-- =========================================================================
+   * TOPIC DEEP-DIVE MODAL
+   * ========================================================================= -->
+  <div class="modal-backdrop" id="topicModal" onclick="closeTopicModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div>
+          <span class="brand-tag" id="modalTopicBadge">TOPIC 1.1</span>
+          <h2 style="font-size:20px; font-weight:800; color:var(--text); margin-top:4px;" id="modalTopicTitle">Topic Title</h2>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button class="icon-btn" onclick="narrateCurrentModal()" title="Listen Aloud">🎙️</button>
+          <button class="icon-btn" id="modalBookmarkBtn" onclick="toggleModalBookmark()" title="Bookmark Topic">⭐</button>
+          <button class="modal-close-btn" onclick="closeTopicModal()">&times;</button>
+        </div>
+      </div>
+
+      <!-- Live Simulation Header inside Modal -->
+      <div class="modal-sim-header">
+        <canvas id="canvas-modal-viz"></canvas>
+      </div>
+
+      <!-- Modal Tabs -->
+      <div class="modal-tabs-bar">
+        <button class="modal-tab-btn active" onclick="switchModalTab('overview', this)">📖 Concept & Theory</button>
+        <button class="modal-tab-btn" onclick="switchModalTab('derivation', this)">📐 Math Derivation</button>
+        <button class="modal-tab-btn" onclick="switchModalTab('notes', this)">⚡ Revision Notes</button>
+        <button class="modal-tab-btn" onclick="switchModalTab('example', this)">🔢 Solved Numerical</button>
+        <button class="modal-tab-btn" onclick="switchModalTab('quiz', this)">🎯 Topic Quiz</button>
+      </div>
+
+      <!-- Modal Content Tab 1: Theory -->
+      <div class="modal-content-tab active" id="modal-tab-overview">
+        <div id="modalOverviewText"></div>
+      </div>
+
+      <!-- Modal Content Tab 2: Derivation -->
+      <div class="modal-content-tab" id="modal-tab-derivation">
+        <div id="modalDerivationContent"></div>
+      </div>
+
+      <!-- Modal Content Tab 3: Notes -->
+      <div class="modal-content-tab" id="modal-tab-notes">
+        <ul id="modalNotesList" style="list-style:none; display:flex; flex-direction:column; gap:12px;"></ul>
+      </div>
+
+      <!-- Modal Content Tab 4: Solved Example -->
+      <div class="modal-content-tab" id="modal-tab-example">
+        <div id="modalExampleContent"></div>
+      </div>
+
+      <!-- Modal Content Tab 5: Topic Quiz -->
+      <div class="modal-content-tab" id="modal-tab-quiz">
+        <div id="modalQuizContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+   * GLOBAL QUICK SEARCH MODAL (Ctrl+K)
+   * ========================================================================= -->
+  <div class="modal-backdrop" id="searchModal" onclick="closeSearchModal(event)">
+    <div class="search-modal-card" onclick="event.stopPropagation()">
+      <div class="search-modal-header">
+        <span style="font-size:18px;">🔍</span>
+        <input type="text" class="search-modal-input" id="searchModalInput" placeholder="Quick search topics, formulas, or calculators..." oninput="handleGlobalSearch(this.value)">
+        <span style="font-size:11px; color:var(--muted); font-family:monospace; background:rgba(255,255,255,0.08); padding:3px 6px; border-radius:4px;">ESC to close</span>
+      </div>
+      <div class="search-results-list" id="searchResultsContainer">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+   * VOICE SETTINGS MODAL
+   * ========================================================================= -->
+  <div class="modal-backdrop" id="voiceModal" onclick="closeVoiceSettings(event)">
+    <div class="voice-settings-card" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3 style="font-size:17px; font-weight:800;">Audio Narrator Voice</h3>
+        <button class="modal-close-btn" onclick="closeVoiceSettings()">&times;</button>
+      </div>
+
+      <div class="calc-form-group">
+        <label>Voice Gender Persona:</label>
+        <select id="voiceGenderSelect" class="calc-input" onchange="onVoiceGenderChange(this.value)">
+          <option value="female">Natural Female Voice</option>
+          <option value="male">Natural Male Voice</option>
+        </select>
+      </div>
+
+      <div class="calc-form-group">
+        <label>Speech Rate: <span id="voiceRateTxt" style="color:var(--cyan);">1.0x</span></label>
+        <input type="range" class="slider" id="voiceRateSlider" min="0.75" max="1.5" step="0.05" value="1.0" oninput="onVoiceRateChange(this.value)">
+      </div>
+
+      <div style="margin-top:16px;">
+        <button class="btn-card btn-card-primary" style="width:100%;" onclick="testVoiceNarrator()">🔊 Test Voice Sample</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+   * SCRIPTS INTEGRATION
+   * ========================================================================= -->
+  <script src="three.min.js"></script>
+  <script src="OrbitControls.js"></script>
+  <script src="textures.js"></script>
+  <script src="audio.js"></script>
+  <script src="speech_narrator.js"></script>
+  <script src="particles_fx.js"></script>
+  <script src="math_renderer.js"></script>
+  <script src="device_models.js"></script>
+  <script src="visualizers.js"></script>
+  <script src="circuit_simulators.js"></script>
+  <script src="beee_course_data.js"></script>
+  <script src="calculators.js"></script>
+
+  <!-- =========================================================================
+   * MAIN APPLICATION ENGINE
+   * ========================================================================= -->
+  <script>
+    let lab = null;
+    let currentTopicModalId = null;
+    let activeFilterUnit = 'all';
+    let currentActiveWorkbench = 'ohm_law';
+    let bookmarks = JSON.parse(localStorage.getItem('beee_bookmarks') || '[]');
+
+    // Exam State
+    let examMode = 'practice'; // 'practice' or 'timed'
+    let examQuestions = [];
+    let currentExamIdx = 0;
+    let examTimerSecs = 15 * 60;
+    let examTimerInterval = null;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // 0. Enrich & normalize mathematical formulas & curriculum data
+      if (window.MathRenderer && window.BEEE_DATA) {
+        window.MathRenderer.enrichCourseData(window.BEEE_DATA);
+      }
+
+      // 1. Initialize Particle Visual Effects
+      if (window.VisualFX) VisualFX.init();
+
+      // 2. Load Persisted Theme
+      const savedTheme = localStorage.getItem('beee_theme') || 'theme-cyber';
+      document.body.className = savedTheme;
+      document.getElementById('themeSelect').value = savedTheme;
+
+      // 3. Initialize 3D Device Lab
+      init3DLab();
+
+      // 4. Render Syllabus Topics Grid
+      renderTopics();
+
+      // 5. Initialize 2D Circuit Workbench
+      switchWorkbenchSim('ohm_law');
+
+      // 6. Render Master Formula Vault
+      renderFormulaVault();
+
+      // 7. Initialize Calculators
+      runCalcOhm();
+      runCalcEnergy();
+      runCalcWire();
+      runCalcTemp();
+      runCalcSeries();
+      runCalcParallel();
+      runCalcStarDelta();
+      runCalcInductor();
+      runCalcRC();
+      runCalcCoulomb();
+      runCalcComposite();
+      runCalcColor();
+
+      // 8. Initialize Exam Questions
+      initExam();
+
+      // 9. Global Keyboard Shortcuts (Ctrl+K)
+      window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          openSearchModal();
+        } else if (e.key === 'Escape') {
+          closeSearchModal();
+          closeTopicModal();
+          closeVoiceSettings();
+        }
+      });
+
+      // 10. Scroll Progress Listener (Passive & rAF Throttled)
+      window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    });
+
+    let scrollTicking = false;
+    function updateScrollProgress() {
+      if (!scrollTicking) {
+        requestAnimationFrame(() => {
+          const winScroll = document.documentElement.scrollTop;
+          const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          const scrolled = (winScroll / (height || 1)) * 100;
+          const bar = document.getElementById('scroll-progress');
+          if (bar) bar.style.width = scrolled + '%';
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
+    }
+
+    /* --- Theme Engine --- */
+    function changeTheme(themeName) {
+      document.body.className = themeName;
+      localStorage.setItem('beee_theme', themeName);
+      if (window.AudioEngine) window.AudioEngine.playSwitch();
+    }
+
+    /* --- 3D WebGL Device Lab --- */
+    function init3DLab() {
+      const container = document.getElementById('webgl-container');
+      try {
+        lab = new DeviceLab(container, onPartSelected, onMetricsReceived);
+      } catch (e) {
+        console.error('3D Engine Error:', e);
+      }
+    }
+
+    function switch3DDevice(devKey, btn) {
+      if (btn) {
+        btn.parentElement.querySelectorAll('.sim-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      if (lab) lab.loadDevice(devKey);
+      const names = {
+        parallel_plate: 'DEVICE: PARALLEL-PLATE CAPACITOR',
+        rolled_capacitor: 'DEVICE: ROLLED ELECTROLYTIC CAPACITOR',
+        electroscope: 'DEVICE: GOLD LEAF ELECTROSCOPE'
+      };
+      document.getElementById('hudDeviceName').textContent = names[devKey] || '3D VIRTUAL DEVICE';
+      if (window.AudioEngine) window.AudioEngine.playSwitch();
+    }
+
+    function onPartSelected(partId, info) {
+      // HUD part inspect callback
+    }
+
+    function onMetricsReceived(metrics) {
+      if (!metrics) return;
+      if (metrics.capacitance) document.getElementById('txtCapacitance').textContent = metrics.capacitance;
+      if (metrics.charge) document.getElementById('txtCharge').textContent = metrics.charge;
+      if (metrics.energy) document.getElementById('txtEnergy').textContent = metrics.energy;
+      if (metrics.field) document.getElementById('txtField').textContent = metrics.field;
+    }
+
+    function onVoltageChange(val) {
+      document.getElementById('txtPlateVoltage').textContent = val + ' V';
+      if (lab) lab.setVoltage(val);
+    }
+
+    function onDistanceChange(val) {
+      document.getElementById('txtDistance').textContent = val + ' mm';
+      if (lab) lab.setPlateDistance(val);
+    }
+
+    function onDielectricInsertChange(val) {
+      document.getElementById('txtInsert').textContent = (val * 100).toFixed(0) + '%';
+      if (lab) lab.setDielectricInsert(val);
+    }
+
+    function setDielectricType(type, btn) {
+      btn.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      if (lab) lab.setDielectricType(type);
+    }
+
+    function setCameraPreset(preset, btn) {
+      btn.parentElement.querySelectorAll('.view-tool-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (!lab) return;
+      if (preset === 'iso') { lab.camera.position.set(0, 45, 120); lab.controls.target.set(0, 15, 0); }
+      else if (preset === 'front') { lab.camera.position.set(0, 24, 130); lab.controls.target.set(0, 24, 0); }
+      else if (preset === 'top') { lab.camera.position.set(0, 140, 0); lab.controls.target.set(0, 0, 0); }
+      else if (preset === 'core') { lab.camera.position.set(0, 24, 50); lab.controls.target.set(0, 24, 0); }
+    }
+
+    function toggleAutoRotate(btn) {
+      if (!lab) return;
+      lab.state.autoRotate = !lab.state.autoRotate;
+      btn.classList.toggle('active', lab.state.autoRotate);
+    }
+
+    function resetView() {
+      if (!lab) return;
+      lab.camera.position.set(0, 45, 120);
+      lab.controls.target.set(0, 15, 0);
+    }
+
+    function togglePower() {
+      if (!lab) return;
+      lab.togglePower();
+      const pBtn = document.getElementById('powerBtn');
+      const tag = document.getElementById('powerStatusTag');
+      if (lab.state.isPowered) {
+        pBtn.textContent = '⚡ Power: ON';
+        tag.textContent = 'POWER: ON';
+        tag.style.color = 'var(--cyan)';
+      } else {
+        pBtn.textContent = '🛑 Power: OFF';
+        tag.textContent = 'POWER: OFF';
+        tag.style.color = '#ef4444';
+      }
+      if (window.AudioEngine) window.AudioEngine.playSwitch();
+    }
+
+    function triggerSparkArc() {
+      if (lab) lab.triggerSpark();
+      if (window.AudioEngine) window.AudioEngine.playSpark();
+    }
+
+    function toggleAudio() {
+      if (!window.AudioEngine) return;
+      const muted = window.AudioEngine.toggleMute();
+      document.getElementById('audioToggleBtn').textContent = muted ? '🔇' : '🔊';
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    /* --- Syllabus Topics Catalog --- */
+    function renderTopics(query = '') {
+      const container = document.getElementById('topicsGridContainer');
+      container.innerHTML = '';
+
+      let list = BEEE_DATA.topics.slice();
+      if (activeFilterUnit !== 'all') {
+        if (activeFilterUnit === 'bookmarks') {
+          list = list.filter(t => bookmarks.includes(t.id));
+        } else {
+          list = list.filter(t => t.unitId === activeFilterUnit);
+        }
+      }
+
+      if (query) {
+        const q = query.toLowerCase();
+        list = list.filter(t =>
+          t.title.toLowerCase().includes(q) ||
+          t.concept.toLowerCase().includes(q) ||
+          t.topicNum.includes(q) ||
+          (t.badge && t.badge.toLowerCase().includes(q))
+        );
+      }
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column:1/-1; text-align:center; padding:50px; color:var(--muted);">
+            <h3>No topics match your filter or bookmarks.</h3>
+            <p>Try searching for Ohm's Law, KCL, KVL, Capacitance, or Star-Delta.</p>
+          </div>
+        `;
+        return;
+      }
+
+      list.forEach(t => {
+        const isBookmarked = bookmarks.includes(t.id);
+        const card = document.createElement('div');
+        card.className = 'topic-card';
+
+        const unitColor = t.unitId === 'u1' ? '#00f5ff' : t.unitId === 'u2' ? '#a855f7' : '#10b981';
+        const unitName = t.unitId === 'u1' ? 'Unit 1' : t.unitId === 'u2' ? 'Unit 2' : 'Unit 3';
+
+        card.innerHTML = `
+          <div>
+            <div class="topic-card-header">
+              <span class="topic-badge" style="background:${unitColor}22; color:${unitColor}; border:1px solid ${unitColor}44;">
+                ${unitName} • ${t.topicNum}
+              </span>
+              <button class="bookmark-btn ${isBookmarked ? 'active' : ''}" onclick="toggleBookmark('${t.id}', this)" title="Bookmark">
+                ${isBookmarked ? '★' : '☆'}
+              </button>
+            </div>
+            <h3>${t.title}</h3>
+            <p>${t.conceptFormatted || (window.MathRenderer ? window.MathRenderer.formatText(t.concept) : t.concept)}</p>
+            <div class="topic-formula-preview">${window.MathRenderer ? window.MathRenderer.render(t.mathHtml || t.math || '') : (t.mathHtml || '<span>V = I &middot; R</span>')}</div>
+          </div>
+          <div class="topic-card-actions">
+            <button class="btn-card btn-card-primary" onclick="openTopicModal('${t.id}')">⚡ Study Topic</button>
+            <button class="btn-card btn-card-secondary" onclick="launchTopicWorkbench('${t.id}')">🔬 Simulate</button>
+            <button class="icon-btn" onclick="narrateTopic('${t.id}')" title="Listen Aloud" style="width:34px; height:34px; font-size:13px;">🎙️</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterTopics(unit, btn) {
+      activeFilterUnit = unit;
+      btn.parentElement.querySelectorAll('.unit-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      renderTopics();
+      if (window.AudioEngine) window.AudioEngine.playSwitch();
+    }
+
+    function searchTopics(q) {
+      renderTopics(q);
+    }
+
+    function toggleBookmark(topicId, btn) {
+      const idx = bookmarks.indexOf(topicId);
+      if (idx > -1) {
+        bookmarks.splice(idx, 1);
+        if (btn) { btn.classList.remove('active'); btn.textContent = '☆'; }
+      } else {
+        bookmarks.push(topicId);
+        if (btn) { btn.classList.add('active'); btn.textContent = '★'; }
+        if (window.AudioEngine) window.AudioEngine.playChime();
+      }
+      localStorage.setItem('beee_bookmarks', JSON.stringify(bookmarks));
+      if (activeFilterUnit === 'bookmarks') renderTopics();
+    }
+
+    function toggleModalBookmark() {
+      if (!currentTopicModalId) return;
+      toggleBookmark(currentTopicModalId);
+      const isBookmarked = bookmarks.includes(currentTopicModalId);
+      const btn = document.getElementById('modalBookmarkBtn');
+      btn.textContent = isBookmarked ? '★' : '☆';
+      btn.style.color = isBookmarked ? '#facc15' : 'var(--muted)';
+    }
+
+    /* --- Topic Deep-Dive Modal --- */
+    function openTopicModal(topicId) {
+      currentTopicModalId = topicId;
+      const topic = BEEE_DATA.topics.find(t => t.id === topicId);
+      if (!topic) return;
+
+      document.getElementById('modalTopicBadge').textContent = `UNIT ${topic.unitId.replace('u','')} • TOPIC ${topic.topicNum}`;
+      document.getElementById('modalTopicTitle').textContent = topic.title;
+
+      const isBookmarked = bookmarks.includes(topicId);
+      const bBtn = document.getElementById('modalBookmarkBtn');
+      bBtn.textContent = isBookmarked ? '★' : '☆';
+      bBtn.style.color = isBookmarked ? '#facc15' : 'var(--muted)';
+
+      // 1. Overview Tab
+      const linesHtml = (topic.linesFormatted || topic.lines) ? (topic.linesFormatted || topic.lines).map(l => `
+        <div class="theory-line" style="margin-bottom:12px;">
+          <span class="bullet-dot">⚡</span>
+          <span>${l}</span>
+        </div>
+      `).join('') : `<p>${topic.conceptFormatted || topic.concept}</p>`;
+
+      const varsHtml = topic.variables ? `
+        <div class="vars-block" style="margin-top:16px;">
+          <div class="vars-title">Variable & SI Unit Nomenclature:</div>
+          ${topic.variables.map(v => `<div class="var-line"><span class="var-sym">${v.sym}</span> = ${v.name} <span class="var-unit">[${v.unit}]</span></div>`).join('')}
+        </div>
+      ` : '';
+
+      document.getElementById('modalOverviewText').innerHTML = `
+        <div style="font-size:15px; line-height:1.7; color:#f1f5f9; margin-bottom:18px;">
+          <b>Core Fundamental:</b> ${topic.conceptFormatted || topic.concept}
+        </div>
+        ${topic.mathHtml || ''}
+        <div style="margin-top:16px;">${linesHtml}</div>
+        ${varsHtml}
+        ${topic.realWorldApp ? `<div style="margin-top:18px; background:rgba(0,245,255,0.06); border:1px solid rgba(0,245,255,0.2); padding:12px 16px; border-radius:10px;"><b style="color:var(--cyan);">Real-World Engineering Application:</b> ${topic.realWorldApp}</div>` : ''}
+      `;
+
+      // 2. Derivation Tab
+      const derivHtml = (topic.derivationSteps && topic.derivationSteps.length > 0)
+        ? topic.derivationSteps.map(s => `
+          <div style="background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:12px; padding:14px 18px; margin-bottom:12px;">
+            <div style="font-weight:800; color:var(--cyan); margin-bottom:6px;">Step ${s.step}: ${s.title}</div>
+            ${s.mathHtml || (window.MathRenderer ? window.MathRenderer.render(s.math) : `<div class="math-eq" style="margin:8px 0;">${s.math}</div>`)}
+            <div style="color:#cbd5e1; font-size:13.5px;">${s.textFormatted || s.text}</div>
+          </div>
+        `).join('')
+        : `<p style="color:var(--muted);">Standard definition and empirical relation.</p>`;
+      document.getElementById('modalDerivationContent').innerHTML = derivHtml;
+
+      // 3. Notes Tab
+      const notesHtml = (topic.linesFormatted || topic.lines) ? (topic.linesFormatted || topic.lines).map(l => `
+        <li class="theory-line" style="background:rgba(255,255,255,0.03); border:1px solid var(--border); padding:10px 14px; border-radius:9px;">
+          <span class="bullet-dot">⚡</span>
+          <span>${l}</span>
+        </li>
+      `).join('') : '';
+
+      const mistakesHtml = (topic.commonMistakes && topic.commonMistakes.length > 0)
+        ? `
+          <div style="margin-top:18px; background:rgba(239, 68, 68, 0.08); border:1px solid rgba(239, 68, 68, 0.3); border-radius:12px; padding:14px 18px;">
+            <div style="font-weight:800; color:#ef4444; margin-bottom:8px;">⚠️ Common Student Examination Pitfalls:</div>
+            ${topic.commonMistakes.map(m => `<div style="font-size:13px; color:#fca5a5; margin-bottom:4px;">• ${m}</div>`).join('')}
+          </div>
+        `
+        : '';
+      document.getElementById('modalNotesList').innerHTML = notesHtml + mistakesHtml;
+
+      // 4. Example Tab
+      if (topic.example) {
+        document.getElementById('modalExampleContent').innerHTML = `
+          <div style="background:rgba(10,16,32,0.85); border:1px solid var(--border); border-radius:14px; padding:20px;">
+            <h4 style="color:var(--cyan); font-size:15px; margin-bottom:10px;">EXAM PROBLEM STATEMENT:</h4>
+            <div style="font-size:14.5px; line-height:1.6; color:#f8fafc; margin-bottom:18px;">${topic.example.problemFormatted || topic.example.problem}</div>
+            <h4 style="color:var(--emerald); font-size:14px; margin-bottom:8px;">STEP-BY-STEP SOLUTION:</h4>
+            <pre style="background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.06); padding:14px; border-radius:10px; color:#cbd5e1; font-family:monospace; font-size:13px; white-space:pre-wrap; line-height:1.6;">${topic.example.solutionFormatted || topic.example.solution}</pre>
+          </div>
+        `;
+      } else {
+        document.getElementById('modalExampleContent').innerHTML = '<p style="color:var(--muted);">Example numerical being updated.</p>';
+      }
+
+      // 5. Quiz Tab
+      if (topic.quiz && topic.quiz.length > 0) {
+        document.getElementById('modalQuizContent').innerHTML = topic.quiz.map((q, qIdx) => `
+          <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:14px; padding:18px; margin-bottom:16px;">
+            <div style="font-weight:700; font-size:15px; margin-bottom:12px;">Q${qIdx+1}: ${q.q}</div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              ${q.opts.map((opt, oIdx) => `
+                <button class="quiz-opt-btn" onclick="checkModalQuiz(this, ${oIdx === q.ans}, '${q.exp.replace(/'/g, "\\'")}')">
+                  ${String.fromCharCode(65+oIdx)}. ${opt}
+                </button>
+              `).join('')}
+            </div>
+            <div class="quiz-feedback-box" style="margin-top:12px;"></div>
+          </div>
+        `).join('');
+      } else {
+        document.getElementById('modalQuizContent').innerHTML = '<p style="color:var(--muted);">Check the Exam section for comprehensive quizzes.</p>';
+      }
+
+      // Render Modal Simulator Header
+      document.getElementById('topicModal').classList.add('open');
+      if (window.CircuitSimulators) {
+        CircuitSimulators.renderForTopic(topicId, 'canvas-modal-viz');
+      }
+      if (window.AudioEngine) window.AudioEngine.playChime();
+    }
+
+    function checkModalQuiz(btn, isCorrect, exp) {
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.quiz-opt-btn').forEach(b => {
+        b.disabled = true;
+        b.style.cursor = 'default';
+      });
+      btn.classList.add(isCorrect ? 'correct' : 'wrong');
+
+      const fb = parent.parentElement.querySelector('.quiz-feedback-box');
+      if (fb) {
+        fb.style.display = 'block';
+        fb.innerHTML = `
+          <div style="font-weight:800; color:${isCorrect ? '#10b981' : '#ef4444'}; margin-bottom:4px;">
+            ${isCorrect ? '✓ Correct Answer!' : '✗ Incorrect!'}
+          </div>
+          <div>${exp}</div>
+        `;
+      }
+      if (window.AudioEngine) {
+        if (isCorrect) window.AudioEngine.playChime();
+        else window.AudioEngine.playSwitch();
+      }
+    }
+
+    function closeTopicModal(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('topicModal').classList.remove('open');
+      if (window.CircuitSimulators) CircuitSimulators.stop('canvas-modal-viz');
+      if (window.Narrator) window.Narrator.stop();
+    }
+
+    function switchModalTab(tabId, btn) {
+      btn.parentElement.querySelectorAll('.modal-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.modal-content-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('modal-tab-' + tabId).classList.add('active');
+      if (window.AudioEngine) window.AudioEngine.playSwitch();
+    }
+
+    function narrateTopic(topicId) {
+      const topic = BEEE_DATA.topics.find(t => t.id === topicId);
+      if (!topic) return;
+      const text = `${topic.title}. ${topic.concept}. ${topic.lines ? topic.lines.join(' ') : ''}`;
+      window.Narrator.toggle(text);
+      if (window.AudioEngine) window.AudioEngine.playSwitch();
+    }
+
+    function narrateCurrentModal() {
+      if (currentTopicModalId) narrateTopic(currentTopicModalId);
+    }
+
+    function launchTopicWorkbench(topicId) {
+      window.location.hash = 'workbench';
+      const simMap = {
+        'u1_t06': 'ohm_law',
+        'u2_t01': 'series_vdr',
+        'u2_t02': 'parallel_cdr',
+        'u2_t06': 'kcl_junction',
+        'u2_t07': 'kvl_loop',
+        'u2_t04': 'star_delta',
+        'u1_t13': 'temp_coeff',
+        'u1_t14': 'color_code',
+        'u1_t11': 'rc_transient',
+        'u1_t12': 'wire_geom',
+        'u2_t03': 'household'
+      };
+      const sim = simMap[topicId] || 'ohm_law';
+      const btn = Array.from(document.querySelectorAll('.sim-pill')).find(b => b.onclick && b.onclick.toString().includes(sim));
+      switchWorkbenchSim(sim, btn);
+    }
+
+    /* --- 2D Circuit Simulation Workbench --- */
+    function switchWorkbenchSim(simKey, btn) {
+      currentActiveWorkbench = simKey;
+      if (btn) {
+        btn.parentElement.querySelectorAll('.sim-pill').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+      }
+
+      const canvasId = 'workbenchCanvas';
+      const controls = document.getElementById('workbenchControlsContainer');
+
+      if (simKey === 'ohm_law') {
+        CircuitSimulators.initOhmLawSim(canvasId, 12, 10);
+        controls.innerHTML = `
+          <div>
+            <div class="control-label"><span>Voltage (V):</span><span id="txtWbV">12.0 V</span></div>
+            <input type="range" class="slider" min="1" max="50" step="0.5" value="12" oninput="document.getElementById('txtWbV').textContent=this.value+' V'; CircuitSimulators.updateOhmLaw('${canvasId}', this.value, undefined);">
+          </div>
+          <div>
+            <div class="control-label"><span>Resistance (R):</span><span id="txtWbR">10.0 Ω</span></div>
+            <input type="range" class="slider" min="1" max="50" step="0.5" value="10" oninput="document.getElementById('txtWbR').textContent=this.value+' Ω'; CircuitSimulators.updateOhmLaw('${canvasId}', undefined, this.value);">
+          </div>
+        `;
+      } else if (simKey === 'series_vdr') {
+        CircuitSimulators.initSeriesVDRSim(canvasId, 24, 10, 20, 30);
+        controls.innerHTML = `
+          <div>
+            <div class="control-label"><span>Source Voltage Vs:</span><span id="txtWbVs">24 V</span></div>
+            <input type="range" class="slider" min="6" max="60" step="2" value="24" oninput="document.getElementById('txtWbVs').textContent=this.value+' V'; CircuitSimulators.updateSeriesVDR('${canvasId}', this.value, undefined, undefined, undefined);">
+          </div>
+          <div>
+            <div class="control-label"><span>R₁ (Ω):</span><span id="txtWbR1">10 Ω</span></div>
+            <input type="range" class="slider" min="2" max="50" step="1" value="10" oninput="document.getElementById('txtWbR1').textContent=this.value+' Ω'; CircuitSimulators.updateSeriesVDR('${canvasId}', undefined, this.value, undefined, undefined);">
+          </div>
+          <div>
+            <div class="control-label"><span>R₂ (Ω):</span><span id="txtWbR2">20 Ω</span></div>
+            <input type="range" class="slider" min="2" max="50" step="1" value="20" oninput="document.getElementById('txtWbR2').textContent=this.value+' Ω'; CircuitSimulators.updateSeriesVDR('${canvasId}', undefined, undefined, this.value, undefined);">
+          </div>
+          <div>
+            <div class="control-label"><span>R₃ (Ω):</span><span id="txtWbR3">30 Ω</span></div>
+            <input type="range" class="slider" min="2" max="50" step="1" value="30" oninput="document.getElementById('txtWbR3').textContent=this.value+' Ω'; CircuitSimulators.updateSeriesVDR('${canvasId}', undefined, undefined, undefined, this.value);">
+          </div>
+        `;
+      } else if (simKey === 'parallel_cdr') {
+        CircuitSimulators.initParallelCDRSim(canvasId, 24, 12, 24, 48);
+        controls.innerHTML = `
+          <div>
+            <div class="control-label"><span>Voltage V:</span><span id="txtWbParV">24 V</span></div>
+            <input type="range" class="slider" min="6" max="48" step="2" value="24" oninput="document.getElementById('txtWbParV').textContent=this.value+' V'; CircuitSimulators.updateParallelCDR('${canvasId}', this.value, undefined, undefined, undefined);">
+          </div>
+          <div>
+            <div class="control-label"><span>Branch R₁:</span><span id="txtWbParR1">12 Ω</span></div>
+            <input type="range" class="slider" min="4" max="60" step="2" value="12" oninput="document.getElementById('txtWbParR1').textContent=this.value+' Ω'; CircuitSimulators.updateParallelCDR('${canvasId}', undefined, this.value, undefined, undefined);">
+          </div>
+          <div>
+            <div class="control-label"><span>Branch R₂:</span><span id="txtWbParR2">24 Ω</span></div>
+            <input type="range" class="slider" min="4" max="60" step="2" value="24" oninput="document.getElementById('txtWbParR2').textContent=this.value+' Ω'; CircuitSimulators.updateParallelCDR('${canvasId}', undefined, undefined, this.value, undefined);">
+          </div>
+        `;
+      } else if (simKey === 'kcl_junction') {
+        CircuitSimulators.initKCLJunctionSim(canvasId, 4, 3, 5, 7);
+        controls.innerHTML = `
+          <div>
+            <div class="control-label"><span>Incoming I₁ (A):</span><span id="txtKclI1">4 A</span></div>
+            <input type="range" class="slider" min="1" max="10" step="1" value="4" oninput="document.getElementById('txtKclI1').textContent=this.value+' A'; CircuitSimulators.updateKCLJunction('${canvasId}', this.value, undefined, undefined, undefined);">
+          </div>
+          <div>
+            <div class="control-label"><span>Incoming I₂ (A):</span><span id="txtKclI2">3 A</span></div>
+            <input type="range" class="slider" min="1" max="10" step="1" value="3" oninput="document.getElementById('txtKclI2').textContent=this.value+' A'; CircuitSimulators.updateKCLJunction('${canvasId}', undefined, this.value, undefined, undefined);">
+          </div>
+          <div>
+            <div class="control-label"><span>Outgoing I₄ (A):</span><span id="txtKclI4">7 A</span></div>
+            <input type="range" class="slider" min="1" max="12" step="1" value="7" oninput="document.getElementById('txtKclI4').textContent=this.value+' A'; CircuitSimulators.updateKCLJunction('${canvasId}', undefined, undefined, undefined, this.value);">
+          </div>
+        `;
+      } else if (simKey === 'kvl_loop') {
+        CircuitSimulators.initKVLLoopSim(canvasId, 30, 10, 5, 10, 15);
+        controls.innerHTML = `
+          <div>
+            <div class="control-label"><span>EMF E₁ (V):</span><span id="txtKvlE1">30 V</span></div>
+            <input type="range" class="slider" min="10" max="50" step="2" value="30" oninput="document.getElementById('txtKvlE1').textContent=this.value+' V'; CircuitSimulators.updateKVLLoop('${canvasId}', this.value, undefined, undefined, undefined, undefined);">
+          </div>
+          <div>
+            <div class="control-label"><span>EMF E₂ (V):</span><span id="txtKvlE2">10 V</span></div>
+            <input type="range" class="slider" min="0" max="25" step="1" value="10" oninput="document.getElementById('txtKvlE2').textContent=this.value+' V'; CircuitSimulators.updateKVLLoop('${canvasId}', undefined, this.value, undefined, undefined, undefined);">
+          </div>
+        `;
+      } else if (simKey === 'star_delta') {
+        CircuitSimulators.initStarDeltaSim(canvasId, 'star', 10, 20, 30);
+        controls.innerHTML = `
+          <div>
+            <div class="control-label"><span>Branch R_A:</span><span id="txtSdRa">10 Ω</span></div>
+            <input type="range" class="slider" min="2" max="50" step="2" value="10" oninput="document.getElementById('txtSdRa').textContent=this.value+' Ω'; CircuitSimulators.updateStarDelta('${canvasId}', undefined, this.value, undefined, undefined);">
+          </div>
+          <div>
+            <div class="control-label"><span>Branch R_B:</span><span id="txtSdRb">20 Ω</span></div>
+            <input type="range" class="slider" min="2" max="50" step="2" value="20" oninput="document.getElementById('txtSdRb').textContent=this.value+' Ω'; CircuitSimulators.updateStarDelta('${canvasId}', undefined, undefined, this.value, undefined);">
+          </div>
+        `;
+      } else if (simKey === 'temp_coeff') {
+        CircuitSimulators.initTempCoefficientSim(canvasId, 20, 100, 'copper');
+        controls.innerHTML = `
+          <div>
+            <div class="control-label"><span>Temperature (°C):</span><span id="txtTcT">20 °C</span></div>
+            <input type="range" class="slider" min="-50" max="200" step="5" value="20" oninput="document.getElementById('txtTcT').textContent=this.value+' °C'; CircuitSimulators.updateTempCoefficient('${canvasId}', this.value, undefined, undefined);">
+          </div>
+          <div>
+            <div class="control-label"><span>Material:</span></div>
+            <div class="preset-chips">
+              <button class="chip active" onclick="this.parentElement.querySelectorAll('.chip').forEach(c=>c.classList.remove('active')); this.classList.add('active'); CircuitSimulators.updateTempCoefficient('${canvasId}', undefined, undefined, 'copper');">Copper (PTC)</button>
+              <button class="chip" onclick="this.parentElement.querySelectorAll('.chip').forEach(c=>c.classList.remove('active')); this.classList.add('active'); CircuitSimulators.updateTempCoefficient('${canvasId}', undefined, undefined, 'semiconductor');">Silicon (NTC)</button>
+            </div>
+          </div>
+        `;
+      } else if (simKey === 'color_code') {
+        CircuitSimulators.initResistorColorCodeSim(canvasId, 4, 7, 2, 5);
+        controls.innerHTML = `
+          <div>
+            <div class="control-label"><span>1st Digit Band:</span></div>
+            <select class="calc-input" onchange="CircuitSimulators.updateResistorColorCode('${canvasId}', this.value, undefined, undefined, undefined);">
+              <option value="1">1 Brown</option><option value="2">2 Red</option><option value="3">3 Orange</option><option value="4" selected>4 Yellow</option><option value="5">5 Green</option><option value="6">6 Blue</option><option value="7">7 Violet</option>
+            </select>
+          </div>
+          <div>
+            <div class="control-label"><span>2nd Digit Band:</span></div>
+            <select class="calc-input" onchange="CircuitSimulators.updateResistorColorCode('${canvasId}', undefined, this.value, undefined, undefined);">
+              <option value="0">0 Black</option><option value="1">1 Brown</option><option value="2">2 Red</option><option value="7" selected>7 Violet</option><option value="8">8 Gray</option>
+            </select>
+          </div>
+          <div>
+            <div class="control-label"><span>Multiplier:</span></div>
+            <select class="calc-input" onchange="CircuitSimulators.updateResistorColorCode('${canvasId}', undefined, undefined, this.value, undefined);">
+              <option value="1">10¹ Brown</option><option value="2" selected>10² Red (×100)</option><option value="3">10³ Orange (×1k)</option><option value="4">10⁴ Yellow (×10k)</option>
+            </select>
+          </div>
+        `;
+      } else if (simKey === 'rc_transient') {
+        CircuitSimulators.initRCTransientSim(canvasId, 10, 1000, 100);
+        controls.innerHTML = `
+          <div>
+            <div class="control-label"><span>Supply Vs:</span><span id="txtRcVs">10 V</span></div>
+            <input type="range" class="slider" min="2" max="24" step="1" value="10" oninput="document.getElementById('txtRcVs').textContent=this.value+' V'; CircuitSimulators.updateRCTransient('${canvasId}', this.value, undefined, undefined, undefined);">
+          </div>
+          <div>
+            <div class="control-label"><span>Resistance R:</span><span id="txtRcR">1000 Ω</span></div>
+            <input type="range" class="slider" min="200" max="5000" step="100" value="1000" oninput="document.getElementById('txtRcR').textContent=this.value+' Ω'; CircuitSimulators.updateRCTransient('${canvasId}', undefined, this.value, undefined, undefined);">
+          </div>
+        `;
+      } else if (simKey === 'wire_geom') {
+        CircuitSimulators.initResistanceGeometrySim(canvasId, 15, 2.5, 'copper');
+        controls.innerHTML = `
+          <div>
+            <div class="control-label"><span>Length l:</span><span id="txtWgL">15 m</span></div>
+            <input type="range" class="slider" min="2" max="50" step="1" value="15" oninput="document.getElementById('txtWgL').textContent=this.value+' m'; CircuitSimulators.updateResistanceGeometry('${canvasId}', this.value, undefined, undefined);">
+          </div>
+          <div>
+            <div class="control-label"><span>Area A:</span><span id="txtWgA">2.5 mm²</span></div>
+            <input type="range" class="slider" min="0.5" max="10" step="0.5" value="2.5" oninput="document.getElementById('txtWgA').textContent=this.value+' mm²'; CircuitSimulators.updateResistanceGeometry('${canvasId}', undefined, this.value, undefined);">
+          </div>
+        `;
+      } else if (simKey === 'household') {
+        CircuitSimulators.initHouseholdWiringSim(canvasId, false, true);
+        controls.innerHTML = `
+          <div style="display:flex; gap:12px; align-items:center; grid-column:1/-1;">
+            <button class="chip active" id="btnToggleFault" onclick="toggleWiringFault()">⚡ Simulate Insulation Fault</button>
+            <button class="chip active" id="btnToggleEarth" onclick="toggleWiringEarth()">🛡️ Toggle Earth Wire (ON/OFF)</button>
+          </div>
+        `;
+      }
+      if (window.AudioEngine) window.AudioEngine.playSwitch();
+    }
+
+    let wiringFault = false, wiringEarth = true;
+    function toggleWiringFault() {
+      wiringFault = !wiringFault;
+      document.getElementById('btnToggleFault').classList.toggle('active', wiringFault);
+      CircuitSimulators.updateHouseholdWiring('workbenchCanvas', wiringFault, wiringEarth);
+    }
+    function toggleWiringEarth() {
+      wiringEarth = !wiringEarth;
+      document.getElementById('btnToggleEarth').classList.toggle('active', wiringEarth);
+      CircuitSimulators.updateHouseholdWiring('workbenchCanvas', wiringFault, wiringEarth);
+    }
+
+    /* --- 12 Engineering Calculators Handlers --- */
+    function switchCalc(calcKey, btn) {
+      btn.parentElement.querySelectorAll('.calc-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.calc-view-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('panel-calc-' + calcKey).classList.add('active');
+      if (window.AudioEngine) window.AudioEngine.playSwitch();
+    }
+
+    function renderCalcSteps(containerId, steps) {
+      const c = document.getElementById(containerId);
+      if (!c) return;
+      c.innerHTML = steps.map(s => `<div class="calc-step-line">${s}</div>`).join('');
+    }
+
+    function runCalcOhm() {
+      const res = BEEECalculators.calcOhmLaw(
+        document.getElementById('c1_v').value,
+        document.getElementById('c1_i').value,
+        document.getElementById('c1_r').value,
+        document.getElementById('c1_p').value
+      );
+      if (!res.error) {
+        document.getElementById('c1_resPower').textContent = res.P + ' W';
+        renderCalcSteps('c1_steps', res.steps);
+      }
+    }
+
+    function runCalcEnergy() {
+      const res = BEEECalculators.calcEnergyBill(
+        document.getElementById('c2_power').value,
+        document.getElementById('c2_hours').value,
+        document.getElementById('c2_days').value,
+        document.getElementById('c2_rate').value
+      );
+      document.getElementById('c2_resCost').textContent = res.totalCost;
+      renderCalcSteps('c2_steps', res.steps);
+    }
+
+    function runCalcWire() {
+      const res = BEEECalculators.calcResistanceGeometry(
+        document.getElementById('c3_mat').value,
+        document.getElementById('c3_length').value,
+        document.getElementById('c3_area').value,
+        document.getElementById('c3_current').value
+      );
+      document.getElementById('c3_resR').textContent = res.R;
+      renderCalcSteps('c3_steps', res.steps);
+    }
+
+    function runCalcTemp() {
+      const res = BEEECalculators.calcTemperatureResistance(
+        document.getElementById('c4_r1').value,
+        document.getElementById('c4_t1').value,
+        document.getElementById('c4_t2').value,
+        document.getElementById('c4_alpha').value
+      );
+      document.getElementById('c4_resR2').textContent = res.R2;
+      renderCalcSteps('c4_steps', res.steps);
+    }
+
+    function runCalcSeries() {
+      const res = BEEECalculators.calcSeriesVDR(
+        document.getElementById('c5_vs').value,
+        document.getElementById('c5_r1').value,
+        document.getElementById('c5_r2').value,
+        document.getElementById('c5_r3').value
+      );
+      document.getElementById('c5_resReq').textContent = res.Req;
+      renderCalcSteps('c5_steps', res.steps);
+    }
+
+    function runCalcParallel() {
+      const res = BEEECalculators.calcParallelCDR(
+        'voltage',
+        document.getElementById('c6_v').value,
+        document.getElementById('c6_r1').value,
+        document.getElementById('c6_r2').value,
+        document.getElementById('c6_r3').value
+      );
+      document.getElementById('c6_resItotal').textContent = res.Itotal;
+      renderCalcSteps('c6_steps', res.steps);
+    }
+
+    function runCalcStarDelta() {
+      const mode = document.getElementById('c7_mode').value;
+      const res = BEEECalculators.calcStarDelta(
+        mode,
+        document.getElementById('c7_r1').value,
+        document.getElementById('c7_r2').value,
+        document.getElementById('c7_r3').value
+      );
+      document.getElementById('c7_resTitle').textContent = `${res.labelA}=${res.rA}`;
+      renderCalcSteps('c7_steps', res.steps);
+    }
+
+    function runCalcInductor() {
+      const res = BEEECalculators.calcInductance(
+        document.getElementById('c8_l').value,
+        document.getElementById('c8_di').value,
+        document.getElementById('c8_dt').value,
+        document.getElementById('c8_i').value
+      );
+      document.getElementById('c8_resEmf').textContent = res.emf;
+      renderCalcSteps('c8_steps', res.steps);
+    }
+
+    function runCalcRC() {
+      const res = BEEECalculators.calcCapacitorRC(
+        document.getElementById('c9_vs').value,
+        document.getElementById('c9_r').value,
+        document.getElementById('c9_c').value,
+        document.getElementById('c9_t').value
+      );
+      document.getElementById('c9_resVc').textContent = res.vC;
+      renderCalcSteps('c9_steps', res.steps);
+    }
+
+    function runCalcCoulomb() {
+      const res = BEEECalculators.calcCoulomb(
+        document.getElementById('c10_q1').value,
+        document.getElementById('c10_q2').value,
+        document.getElementById('c10_r').value,
+        document.getElementById('c10_er').value
+      );
+      document.getElementById('c10_resF').textContent = res.force;
+      renderCalcSteps('c10_steps', res.steps);
+    }
+
+    function runCalcComposite() {
+      const res = BEEECalculators.calcCompositeCapacitor(
+        document.getElementById('c11_a').value,
+        document.getElementById('c11_d').value,
+        document.getElementById('c11_t1').value,
+        document.getElementById('c11_er1').value,
+        document.getElementById('c11_t2').value,
+        document.getElementById('c11_er2').value,
+        document.getElementById('c11_v').value
+      );
+      document.getElementById('c11_resC').textContent = res.C_pF;
+      renderCalcSteps('c11_steps', res.steps);
+    }
+
+    function runCalcColor() {
+      const res = BEEECalculators.calcResistorColor(
+        document.getElementById('c12_b1').value,
+        document.getElementById('c12_b2').value,
+        document.getElementById('c12_b3').value,
+        document.getElementById('c12_tol').value
+      );
+      document.getElementById('c12_resNominal').textContent = res.nominal;
+      renderCalcSteps('c12_steps', res.steps);
+    }
+
+    /* --- Master Formulas Vault --- */
+    let activeFormulaUnit = 'all';
+    function renderFormulaVault(query = '') {
+      const container = document.getElementById('formulaGridContainer');
+      container.innerHTML = '';
+
+      let list = (BEEE_DATA.masterFormulas || []).slice();
+      if (activeFormulaUnit !== 'all') {
+        list = list.filter(f => (f.unitId === activeFormulaUnit || f.unit === activeFormulaUnit));
+      }
+
+      if (query) {
+        const q = query.toLowerCase();
+        list = list.filter(f =>
+          (f.title && f.title.toLowerCase().includes(q)) ||
+          (f.desc && f.desc.toLowerCase().includes(q)) ||
+          (f.formula && f.formula.toLowerCase().includes(q)) ||
+          (f.math && f.math.toLowerCase().includes(q))
+        );
+      }
+
+      list.forEach(f => {
+        const card = document.createElement('div');
+        card.className = 'formula-card';
+
+        const linesHtml = (f.lines && f.lines.length > 0)
+          ? f.lines.map(line => `
+            <div class="theory-line">
+              <span class="bullet-dot">⚡</span>
+              <span>${line}</span>
+            </div>
+          `).join('')
+          : `<div class="theory-line"><span class="bullet-dot">⚡</span><span>${f.desc}</span></div>`;
+
+        const varsHtml = (f.variables && f.variables.length > 0)
+          ? `
+            <div class="vars-block">
+              <div class="vars-title">Symbols & SI Units:</div>
+              ${f.variables.map(v => `<div class="var-line"><span class="var-sym">${v.sym}</span> = ${v.name} <span class="var-unit">[${v.unit}]</span></div>`).join('')}
+            </div>
+          ` : '';
+
+        const mathOutput = f.mathHtml || (window.MathRenderer ? window.MathRenderer.render(f.math || f.formula || '') : `<div class="math-eq">${f.formula || f.math || ''}</div>`);
+        const unitTag = f.unitStr || (f.unit && !f.unit.startsWith('u') ? f.unit : 'Derived SI');
+
+        card.innerHTML = `
+          <div class="formula-card-header">
+            <h3>${f.title}</h3>
+            <span class="formula-unit-tag">${unitTag}</span>
+          </div>
+          ${mathOutput}
+          <div class="formula-lines-container">
+            ${linesHtml}
+            ${varsHtml}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterFormulas(unit, btn) {
+      activeFormulaUnit = unit;
+      btn.parentElement.querySelectorAll('.unit-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      renderFormulaVault();
+    }
+
+    function searchFormulas(q) {
+      renderFormulaVault(q);
+    }
+
+    /* --- Practice Quiz & Timed Exam Engine --- */
+    function initExam() {
+      // Gather all quizzes across topics
+      examQuestions = [];
+      BEEE_DATA.topics.forEach(t => {
+        if (t.quiz && t.quiz.length > 0) {
+          t.quiz.forEach(q => {
+            examQuestions.push({
+              ...q,
+              topicTitle: t.title,
+              unitId: t.unitId
+            });
+          });
+        }
+      });
+      // Shuffle
+      examQuestions.sort(() => Math.random() - 0.5);
+      examQuestions = examQuestions.slice(0, 15);
+      currentExamIdx = 0;
+      loadExamQuestion();
+    }
+
+    function setExamMode(mode) {
+      examMode = mode;
+      document.getElementById('btnModePractice').classList.toggle('active', mode === 'practice');
+      document.getElementById('btnModeTimed').classList.toggle('active', mode === 'timed');
+
+      if (mode === 'timed') {
+        startExamTimer();
+      } else {
+        clearInterval(examTimerInterval);
+        document.getElementById('examTimerDisplay').textContent = 'PRACTICE';
+      }
+      initExam();
+    }
+
+    function startExamTimer() {
+      clearInterval(examTimerInterval);
+      examTimerSecs = 15 * 60;
+      examTimerInterval = setInterval(() => {
+        examTimerSecs--;
+        const m = Math.floor(examTimerSecs / 60);
+        const s = examTimerSecs % 60;
+        document.getElementById('examTimerDisplay').textContent = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+        if (examTimerSecs <= 0) {
+          clearInterval(examTimerInterval);
+          alert('Time up! Exam submitted.');
+        }
+      }, 1000);
+    }
+
+    function loadExamQuestion() {
+      if (currentExamIdx >= examQuestions.length) return;
+      const q = examQuestions[currentExamIdx];
+
+      document.getElementById('examQBadge').textContent = `QUESTION ${currentExamIdx + 1} OF ${examQuestions.length}`;
+      document.getElementById('examUnitTag').textContent = q.topicTitle;
+      document.getElementById('examQuestionText').textContent = q.q;
+
+      const optsContainer = document.getElementById('examOptionsContainer');
+      optsContainer.innerHTML = q.opts.map((opt, oIdx) => `
+        <button class="quiz-opt-btn" onclick="submitExamAnswer(this, ${oIdx}, ${q.ans}, '${q.exp.replace(/'/g, "\\'")}')">
+          ${String.fromCharCode(65 + oIdx)}. ${opt}
+        </button>
+      `).join('');
+
+      document.getElementById('examFeedbackBox').style.display = 'none';
+    }
+
+    function submitExamAnswer(btn, chosen, correct, exp) {
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.quiz-opt-btn').forEach(b => {
+        b.disabled = true;
+        b.style.cursor = 'default';
+      });
+
+      const isCorrect = chosen === correct;
+      btn.classList.add(isCorrect ? 'correct' : 'wrong');
+
+      if (examMode === 'practice') {
+        const fb = document.getElementById('examFeedbackBox');
+        fb.style.display = 'block';
+        document.getElementById('feedbackTitle').textContent = isCorrect ? '✓ Correct Answer!' : '✗ Incorrect!';
+        document.getElementById('feedbackTitle').style.color = isCorrect ? '#10b981' : '#ef4444';
+        document.getElementById('feedbackText').textContent = exp;
+      }
+      if (window.AudioEngine) {
+        if (isCorrect) window.AudioEngine.playChime();
+        else window.AudioEngine.playSwitch();
+      }
+    }
+
+    function nextExamQuestion() {
+      if (currentExamIdx < examQuestions.length - 1) {
+        currentExamIdx++;
+        loadExamQuestion();
+      } else {
+        alert('You have reached the end of the exam!');
+      }
+    }
+
+    function prevExamQuestion() {
+      if (currentExamIdx > 0) {
+        currentExamIdx--;
+        loadExamQuestion();
+      }
+    }
+
+    /* --- Global Quick Search (Ctrl+K) --- */
+    function openSearchModal() {
+      document.getElementById('searchModal').classList.add('open');
+      document.getElementById('searchModalInput').focus();
+      handleGlobalSearch('');
+    }
+
+    function closeSearchModal(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('searchModal').classList.remove('open');
+    }
+
+    function handleGlobalSearch(query) {
+      const container = document.getElementById('searchResultsContainer');
+      container.innerHTML = '';
+      const q = query.toLowerCase().trim();
+
+      const results = [];
+
+      // Search Topics
+      BEEE_DATA.topics.forEach(t => {
+        if (!q || t.title.toLowerCase().includes(q) || t.concept.toLowerCase().includes(q) || t.topicNum.includes(q)) {
+          results.push({
+            type: 'Topic',
+            title: `${t.topicNum} ${t.title}`,
+            desc: t.concept,
+            action: () => { closeSearchModal(); openTopicModal(t.id); }
+          });
+        }
+      });
+
+      // Search Formulas
+      (BEEE_DATA.masterFormulas || []).forEach(f => {
+        if (!q || (f.title && f.title.toLowerCase().includes(q)) || (f.desc && f.desc.toLowerCase().includes(q)) || (f.math && f.math.toLowerCase().includes(q)) || (f.formula && f.formula.toLowerCase().includes(q))) {
+          results.push({
+            type: 'Formula',
+            title: f.title,
+            desc: f.desc,
+            action: () => { closeSearchModal(); window.location.hash = 'formulas'; searchFormulas(f.title); }
+          });
+        }
+      });
+
+      // Display top 15 results
+      results.slice(0, 15).forEach(r => {
+        const item = document.createElement('div');
+        item.className = 'search-res-item';
+        item.innerHTML = `
+          <div>
+            <div class="search-res-title">${r.title}</div>
+            <div style="font-size:12px; color:var(--muted); line-height:1.4;">${r.desc.slice(0, 90)}...</div>
+          </div>
+          <span class="search-res-type">${r.type}</span>
+        `;
+        item.onclick = r.action;
+        container.appendChild(item);
+      });
+    }
+
+    /* --- Voice Settings Modal --- */
+    function openVoiceSettings() {
+      document.getElementById('voiceModal').classList.add('open');
+      document.getElementById('voiceGenderSelect').value = window.Narrator.gender;
+      document.getElementById('voiceRateSlider').value = window.Narrator.rate;
+      document.getElementById('voiceRateTxt').textContent = window.Narrator.rate.toFixed(2) + 'x';
+    }
+
+    function closeVoiceSettings(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('voiceModal').classList.remove('open');
+    }
+
+    function onVoiceGenderChange(val) {
+      window.Narrator.setGender(val);
+    }
+
+    function onVoiceRateChange(val) {
+      window.Narrator.setRate(val);
+      document.getElementById('voiceRateTxt').textContent = parseFloat(val).toFixed(2) + 'x';
+    }
+
+    function testVoiceNarrator() {
+      window.Narrator.speak('Welcome to the Basic Electrical and Electronics Engineering Master Laboratory. Audio narrator is operational.');
+    }
+  </script>
+  <div id="__debug_error_log" style="display:none;"></div>
+  <script>
+    document.getElementById('__debug_error_log').textContent = JSON.stringify(window.__errors || []);
+  </script>
+</body>
+</html>

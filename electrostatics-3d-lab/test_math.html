@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="index.html">
+  <script src="math_renderer.js"></script>
+  <style>
+    body { background: #030712; color: #fff; font-family: sans-serif; padding: 30px; }
+    .math-eq { font-family: 'Cambria Math', serif; font-size: 19px; color: #fff; background: rgba(0,245,255,0.08); padding: 12px; border-radius: 8px; margin-bottom: 12px; }
+    .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 4px; }
+    .math-frac .num { border-bottom: 2px solid #00f5ff; padding: 1px 4px; text-align: center; }
+    .math-frac .den { padding: 1px 4px; text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>Test Math Rendering Output</h1>
+  <div id="output"></div>
+  <script>
+    const testCases = [
+      "\\text{Electrical: High Voltage, High Power (AC)} \\quad \\Longleftrightarrow \\quad \\text{Electronics: Low Voltage, Signal Processing (DC)}",
+      "Q = \\text{Numerical Magnitude} \\times \\text{Standard Unit} \\quad | \\quad [\\text{Joule}] = [\\text{kg} \\cdot \\text{m}^2 \\cdot \\text{s}^{-2}]",
+      "N = M \\times 10^{3k} \\quad (k \\in \\mathbb{Z}, \\quad 1 \\le M < 1000)",
+      "N_{\\text{max}} = 2n^2 \\quad | \\quad Q = \\pm n \\cdot e \\quad (e = 1.602 \\times 10^{-19}\\text{ C})",
+      "\\text{Conductors } (E_g = 0\\text{ eV}) \\quad | \\quad \\text{Semiconductors } (E_g \\approx 1\\text{ eV}) \\quad | \\quad \\text{Insulators } (E_g > 5\\text{ eV})",
+      "I = \\frac{dQ}{dt} \\quad \\Longleftrightarrow \\quad Q = \\int I \\, dt = I \\cdot t \\quad (1\\text{ Ampere} = 1\\text{ Coulomb/second})"
+    ];
+
+    const out = document.getElementById('output');
+    testCases.forEach((tc, idx) => {
+      const rendered = MathRenderer.render(tc);
+      out.innerHTML += `<h3>Test ${idx + 1}</h3>` + rendered;
+    });
+  </script>
+</body>
+</html>
